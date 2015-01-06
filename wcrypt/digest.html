@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="jsrsasign-4.7.0-all-min.js"></script>
+<script src="util.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebCryptoサンプル：ハッシュ計算</title>
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Web Cryptoサンプル</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">サンプル一覧</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container theme-showcase" role="main">
+
+<div class="jumbotron">
+<h1>ハッシュ計算</h1>
+<p>
+<a href="http://www.w3.org/TR/WebCryptoAPI/">W3C Web Cryptography API</a>
+を使って与えられた文字列に対してハッシュ計算します。
+</p>
+</div>
+
+<div class="formgroup">
+<label for="algname">ハッシュアルゴリズム</label>
+<br/>
+<select id="algname">
+<option value="SHA-1"> SHA-1
+<option value="SHA-256"> SHA-256
+<option value="SHA-384"> SHA-384
+<option value="SHA-512"> SHA-512
+</select>
+</div>
+<div class="formgroup">
+<label for="algname">ハッシュ対象テキスト(UTF-8)</label>
+<br/>
+<textarea id="textarea0" rows="5" cols="100">aaa</textarea>
+</div>
+
+
+<hr/>
+<div>
+<button id="btn1" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> ハッシュ計算</button>
+</div>
+<hr/>
+
+<p>
+ハッシュ値(16進数)<br/>
+<textarea id="textarea1" rows="5" cols="100"></textarea>
+</p>
+
+<hr/>
+
+<h3>動作確認実績</h3>
+<p>
+このページは下記環境で動作を確認しました。
+<ul>
+<li>Firefox 34 for OSX - 問題なく動作</li>
+<li>Chrome 39 for OSX - 問題なく動作</li>
+<li>Safari 7 for OSX - 問題なく動作</li>
+<li>IE11 for Win8.1 - Promiseパターンに対応していないためエラー</li>
+</ul>
+</p>
+
+<h3>補足説明</h3>
+<ul>
+<li>特にありません。</li>
+</ul>
+
+<footer class="bs-docs-footer" role="contentinfo">
+<hr>
+<div align="center">&copy; 2015 Kenji Urushima All Rights Reserved.</div>
+</footer>
+
+</div> <!-- /container -->
+
+
+<script>
+function adderrmsg(msg) {
+  $('#textarea1').val($('#textarea1').val() + "\n" + msg);
+}
+
+$('#textarea1').val('');
+
+$('#btn1').on('click', function (e) {
+  $('#textarea1').val('');
+  var textBuf = utf8touint8a($('#textarea0').val());
+
+  WCS.digest({name: $('#algname').val()}, textBuf
+  ).then(
+    function(hashValue) {
+      $('#textarea1').val(abtohex(hashValue));
+    },
+    function(err) { adderrmsg("digestエラー: " + err); }
+  );
+})
+</script>
+</body>
+
+</html>
