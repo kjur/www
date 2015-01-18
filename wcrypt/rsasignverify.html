@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="http://kjur.github.io/jsjws/ext/json-sans-eval-min.js"></script>
+<script src="jsrsasign-4.7.0-all-min.js"></script>
+<script src="util.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSA署名と検証</title>
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Web Cryptoサンプル</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">サンプル一覧</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container theme-showcase" role="main">
+
+<div class="jumbotron">
+<h1>RSA署名と検証</h1>
+<p>
+<a href="http://www.w3.org/TR/WebCryptoAPI/">W3C Web Cryptography API</a>
+を使ってRSA署名および検証を行います。
+秘密鍵、公開鍵はインポートしたPEM形式やJWK形式の鍵を使う事もできますし、
+APIにより生成された鍵ペアを使う事もできます。
+</p>
+</div>
+
+<div class="formgroup">
+<label for="keylen">鍵ペア</label>
+<input type="text" class="form-control" id="keylen" value="2048"/>
+<button id="btn-genpair" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> 鍵ペア生成</button>
+<buttun id="label-genpair-result1" class="btn btn-large btn-default">ボタンを押して署名用/検証用鍵ペアを生成してください</button>
+</div>
+
+<hr/>
+<h3>署名側</h3>
+<div class="formgroup">
+<label for="prvkey1">秘密鍵(PKCS#8 PEM/JWK形式)</label><br clear="all"/>
+<textarea id="prvkey1" rows="5" cols="100"></textarea>
+<button id="btn-setprvp8" class="btn btn-primary">サンプルPKCS#8の設定</button>
+<button id="btn-setprvjwk" class="btn btn-primary">サンプルJWKの設定</button>
+</div>
+
+<div class="formgroup">
+<label for="signedtext1">署名されるテキスト(UTF-8)</label><br clear="all"/>
+<textarea id="signedtext1" rows="5" cols="100">aaa</textarea>
+</div>
+
+<div class="formgroup">
+<button id="btn-sign" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> 生成した秘密鍵で署名する</button>
+<button id="btn-importsign" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> インポートした秘密鍵で署名する</button>
+</div>
+
+<div class="formgroup">
+<label for="signature1">署名値(16進数)</label><br clear="all"/>
+<textarea id="signature1" rows="5" cols="100"></textarea>
+</div>
+
+<hr/>
+
+<p>
+<h3>検証側</h3>
+<label for="pubkey1">公開鍵(PKCS#8 PEM/JWK形式)</label><br clear="all"/><br clear="all"/>
+<textarea id="pubkey1" rows="5" cols="100"></textarea>
+<button id="btn-setpubp8" class="btn btn-primary">サンプルPKCS#8の設定</button>
+<button id="btn-setpubjwk" class="btn btn-primary">サンプルJWKの設定</button>
+<div class="formgroup">
+
+<div class="formgroup">
+<button id="btn-verify" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> 生成した公開鍵で検証する</button>
+<button id="btn-importverify" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> インポートした公開鍵で検証する</button>
+<buttn id="label-verify-result1" class="btn btn-large btn-default">検証ボタンを押せば結果がココに表示されます。</button>
+</div>
+
+
+<hr/>
+
+<h3>動作確認実績</h3>
+<p>
+このページは下記環境で動作を確認しました。
+<ul>
+<li>Firefox 34 for OSX - 問題なく動作</li>
+<li>Chrome 39 for OSX - 問題なく動作</li>
+<li>Chrome 39 for Android - HTTPSサイトでしか実行できない(NotSupportedError: Only secure origins are allowed. http://goo.gl/lq4gCo</li>
+<li>Safari 7 for OSX - 生成した鍵ペアを使用すれば問題ないが、インポートした鍵を使用するとエラー</li>
+<li>IE11 for Win8.1 - Promiseパターンに対応していないためエラー</li>
+</ul>
+</p>
+
+<h3>補足説明</h3>
+<ul>
+<li>signやverifyのアルゴリズム指定でFirefox 34の場合、JSON形式({name:"RSASSA-PKCS1-v1_5",hash:{name:"SHA-256"}})と"RSASSA-PKCS1-v1_5"の
+両方を受け付けますが、Chrome 39ではJSON形式でなければなりません。</li>
+<li>PKCS#8 PEM形式を16進数文字列にするのに<a href="http://kjur.github.io/jsrsasign/">jsrsasign</a>を使っています。</li>
+</ul>
+
+<footer class="bs-docs-footer" role="contentinfo">
+<hr>
+<div align="center">&copy; 2015 Kenji Urushima All Rights Reserved.</div>
+</footer>
+
+</div> <!-- /container -->
+
+
+<script>
+var prvKeyObj = null;
+var pubKeyObj = null;
+
+function adderrmsg(msg) {
+  $('#prvkey1').val($('#prvkey1').val() + "\n" + msg);
+}
+
+var RE_HEXPATTERN = /^[0-9A-Fa-f]+$/;
+$('#prvkey1').val('');
+$('#pubkey1').val('');
+
+$('#btn-setprvp8').on('click', function (evt) {
+  $('#prvkey1').val(SAMPLE_PRIVATE_KEY);
+});
+
+$('#btn-setprvjwk').on('click', function (evt) {
+  $('#prvkey1').val(JSON.stringify(SAMPLE_PRIVATE_JWK));
+});
+
+$('#btn-setpubp8').on('click', function (evt) {
+  $('#pubkey1').val(SAMPLE_PUBLIC_KEY);
+});
+
+$('#btn-setpubjwk').on('click', function (evt) {
+  $('#pubkey1').val(JSON.stringify(SAMPLE_PUBLIC_JWK));
+});
+
+$('#btn-genpair').on('click', function (evt) {
+  var paramKeyGen = {
+    name: "RSASSA-PKCS1-v1_5",
+    modulusLength: 2048,
+    publicExponent: hextouint8a("010001"),
+    hash: { name: "SHA-256" }
+  };
+
+  WCS.generateKey(paramKeyGen, true, ["sign", "verify"]
+  ).then(
+    function(key) {
+      prvKeyObj = key.privateKey;
+      pubKeyObj = key.publicKey;
+      $('#label-genpair-result1').attr({"class":"btn btn-large btn-success"});
+      $('#label-genpair-result1').text("生成した鍵ペアが使用できます");
+    },
+    function(err) {
+      adderrmsg("generateKeyエラー" + err);
+      $('#label-genpair-result1').attr({"class":"btn btn-large btn-danger"});
+      $('#label-genpair-result1').text("機能がサポートされておらず生成に失敗しました");
+     }
+  );
+});
+
+$('#btn-sign').on('click', function (evt) {
+  //alert("sign");
+  WCS.sign({ name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"} },
+           prvKeyObj, utf8touint8a($('#signedtext1').val())
+  ).then(
+    function(result) {
+      console.log("**sign** 成功");
+      console.log("result=" + abtohex(result));
+      $('#signature1').val(abtohex(result));
+    },
+    function(e) { console.log("**sign** エラー: " + e); }
+  );
+});
+
+$('#btn-importsign').on('click', function (evt) {
+  var prvKeyStr = $('#prvkey1').val();
+  var importData = null;
+  var importType = null;
+  if (prvKeyStr.match(/-----BEGIN PRIVATE KEY-----/)) {
+    var hex = KEYUTIL.getHexFromPEM(prvKeyStr);
+    importData = hextouint8a(hex);
+    importType = "pkcs8";
+  }
+  if (prvKeyStr.match(/{/)) {
+    importData = jsonParse(prvKeyStr);
+    importType = "jwk";
+  }
+
+  if (importType == null) {
+    alert("インポートする秘密鍵が設定されていません");
+    return;
+  }
+
+  WCS.importKey(
+    importType, importData,
+    {name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"}},
+    false, ["sign"]
+  ).then(
+    function(key) {
+      // FF34だと第一引数アルゴリズムはJSONでなく"RSASSA-PKCS1-v1_5"でも通る,CH39はダメ
+      return WCS.sign({ name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"} },
+                      key, utf8touint8a($('#signedtext1').val()));
+    },
+    function(e) { alert("鍵インポートエラー: " + e); }
+  ).then(
+    function(result) {
+      console.log("**sign** 成功");
+      console.log("result=" + abtohex(result));
+      $('#signature1').val(abtohex(result));
+    },
+    function(e) { console.log("**sign** エラー: " + e); }
+  );
+});
+
+$('#btn-verify').on('click', function (evt) {
+  var sigUint8a = hextouint8a($('#signature1').val());
+  var textUint8a = utf8touint8a($('#signedtext1').val());
+  WCS.verify({ name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"} },
+             pubKeyObj, sigUint8a, textUint8a
+  ).then(
+    function(result) {
+      console.log("**verify** 処理成功");
+      if (result == true) {
+        console.log("**verify** 署名検証成功");
+        $('#label-verify-result1').attr({"class":"btn btn-large btn-success"});
+        $('#label-verify-result1').text("署名検証結果は成功(一致)でした。");
+      } else {
+        console.log("**verify** 署名検証失敗(不一致)");
+        $('#label-verify-result1').attr({"class":"btn btn-large btn-danger"});
+        $('#label-verify-result1').text("署名検証結果は失敗(不一致)でした。");
+      }
+      //console.log("result=" + result);
+    },
+    function(e) { console.log("**verify** エラー: " + e); }
+  );
+});
+
+$('#btn-importverify').on('click', function (evt) {
+  var prvKeyStr = $('#pubkey1').val();
+  var importData = null;
+  var importType = null;
+  if (prvKeyStr.match(/-----BEGIN PUBLIC KEY-----/)) {
+    var hex = KEYUTIL.getHexFromPEM(prvKeyStr);
+    importData = hextouint8a(hex);
+    importType = "spki";
+  }
+  if (prvKeyStr.match(/{/)) {
+    importData = jsonParse(prvKeyStr);
+    importType = "jwk";
+  }
+
+  if (importType == null) {
+    alert("インポートする公開鍵が設定されていません");
+    return;
+  }
+
+  WCS.importKey(
+    importType, importData,
+    {name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"}},
+    false, ["verify"]
+  ).then(
+    function(key) {
+      console.log("**import publickey(spki)** 成功");
+      var sigUint8a = hextouint8a($('#signature1').val());
+      var textUint8a = utf8touint8a($('#signedtext1').val());
+      return WCS.verify({ name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"} },
+                        key, sigUint8a, textUint8a);
+    },
+    function(e) { alert("公開鍵インポートエラー: " + e); }
+  ).then(
+    function(result) {
+      console.log("**verify** 処理成功");
+      if (result == true) {
+        console.log("**verify** 署名検証成功");
+        $('#label-verify-result1').attr({"class":"btn btn-large btn-success"});
+        $('#label-verify-result1').text("署名検証結果は成功(一致)でした。");
+      } else {
+        console.log("**verify** 署名検証失敗(不一致)");
+        $('#label-verify-result1').attr({"class":"btn btn-large btn-danger"});
+        $('#label-verify-result1').text("署名検証結果は失敗(不一致)でした。");
+      }
+    },
+    function(e) { console.log("**verify** エラー: " + e); }
+  );
+});
+
+$('#btn1').on('click', function (e) {
+  var keylen = -1;
+  var pubexpUint8a = null;
+  var keyUsage = getKeyUsageList();
+
+  try {
+    keylen = parseInt($('#keylen').val());
+    if (keylen < 1) throw "keylen is not positive integer";
+  } catch(ex) { alert("鍵長の値が適切ではありません"); return; }
+
+  try {
+    var s = $('#pubexp').val();
+    if (s.length % 2 == 1) s = "0" + s;
+    if (! s.match(RE_HEXPATTERN)) throw "not hex string";
+    pubexpUint8a = hextouint8a(s);
+  } catch(ex) { alert("公開指数が適切ではありません"); return; }
+
+  if (keyUsage.length == 0) {
+    alert("鍵使用目的が指定されていません"); return;
+  }
+
+  var hextopem = KJUR.asn1.ASN1Util.getPEMStringFromHex;
+  $('#prvkey1').val('');
+  $('#pubkey1').val('');
+  var prvKeyObj = null;
+  var pubKeyObj = null;
+
+  var paramKeyGen = {
+    name: $('#algname').val(),
+    modulusLength: keylen,
+    publicExponent: pubexpUint8a,
+    hash: { name: "SHA-256" }
+  };
+
+  WCS.generateKey(paramKeyGen, true, keyUsage
+  ).then(
+    function(key) {
+      prvKeyObj = key.privateKey;
+      pubKeyObj = key.publicKey;
+      return WCS.exportKey('pkcs8', prvKeyObj);
+    },
+    function(err) { adderrmsg("generateKeyエラー" + err); }
+  ).then(
+    function(keyAB) {
+      var hex = abtohex(keyAB);
+      var prvp8ppem = hextopem(hex, "PRIVATE KEY");
+      $('#prvkey1').val(prvp8ppem);
+      return WCS.exportKey('spki', pubKeyObj);
+    },
+    function(err) { adderrmsg("exportKey prvエラー" + err); }
+  ).then(
+    function(keyAB) {
+      var hex = abtohex(keyAB);
+      var pubpem = hextopem(hex, "PUBLIC KEY");
+      $('#pubkey1').val(pubpem);
+    },
+    function(err) { adderrmsg("exportKey pubエラー" + err); }
+  );
+})
+
+// ownCloud/w3ccryptapi/k2048.p8p.pem
+var SAMPLE_PRIVATE_KEY = "" +
+"-----BEGIN PRIVATE KEY-----\r\n" +
+"MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDCXcad3tLyswji\r\n" +
+"WpzIKaeopTmpzeV8+dXUyT7iD4DQLxSm7EkMxY4PkY4O3hCgOMIN/WDp1U+4gDto\r\n" +
+"7mMXHh6AJNIxfuh1SxeYDdEg7xB//KFODSQNptwP9pwg7hve9RBvqASXhy1QOjtx\r\n" +
+"TkxMxi3wOdobpY3FeWerVml0CHYh5JfFXcTzLfGmeaAJaeOl2gcJ/mheItKhK0UQ\r\n" +
+"xTiXn8MEOO5NMunhX9e/QcJ9/MAdg18dj5O/k7QANai/HHXuuhwYK51gS16rmCX7\r\n" +
+"exigiyc8YeRYk1EMy83I6l2DozsDPk4CYgyk/EfUO04QGUMkNJGjlCY6k6cExMx+\r\n" +
+"0nG1UGgNAgMBAAECggEAGf3oXZw6oXIHsh1j8fCAFzFhMK/0DG5shfQTkK96Dlz9\r\n" +
+"agUXD7orcTGJybswhfyRFsXXe+2mp4meaD3YynKgqYpDAZNzCpxsH01ZtgnCLxtd\r\n" +
+"hs6DD8BMlWXpIw40c/BZrlTNqGXPTXc8E77gvTOTWRijbicJemrtzh/UIkwvYACx\r\n" +
+"nUBVFg5VkwZhO3XeR1loswUfxZpI8FAj/qoRLnaN5KgIOaHwjWeXIidGMu3upuLH\r\n" +
+"px8FFFE1CiooocDiAQjpZRy1u8xU8l3AqENqNGWxUtexIXrXdwwoRradc6IPV5QP\r\n" +
+"azVKEkhds+6BMI71QLS1g5ahiW3fdnkO0TlZ6Pe7kQKBgQD8bBiuQ0BYXXwRS5wn\r\n" +
+"Qm+7kVMHARBcRGoo3R5I6IkqRRLZ6qzOkEoHJhd172hryyS9x6C8C18f58nP/JA/\r\n" +
+"BW+B8tU7akDIR9l+TDVpqCOD6+3WCiNAfaYi9/AI4X9nSZtwoPtx9Mrd5PC8fGRz\r\n" +
+"WrppdR8kkYtqhrfj2C/2NSzH4wKBgQDFHwagfZYYXn2bxiAs3wrzXDlC57P65tRh\r\n" +
+"SkJXEsMLZDCR0vqmnHGi+qhcYg8Vb+OFlrO3AfSCeH0OvkwTVd5z4ShDkUN3ssSG\r\n" +
+"j0Fns9JhhE0l/bN0Z1CvSg7j0MYmZrIzR8qzPMyUdNXPpbISR5vb/faq9kgfY4Md\r\n" +
+"ZYyKn0mzTwKBgC4SpOaZy9LVLWISxOu9iptXySnMHepZam8O/Qodt3uJpAk2dlg1\r\n" +
+"qe1oHHwgOJUEPS6Ok13/TVuLeSCHXuTB3zp+0kDIAg8MXjxZOJ6SW/kmRQD+VLTe\r\n" +
+"ukZDrwJP9msp2j9SgtKn9adOtEoTAlqzwrag9BA+qI3HDSV/PjHYPtY1AoGARUZ6\r\n" +
+"Fb0NGtNaYXxnol1gg9ZNaW30mqC00tw+JEu7sC0txJHY9OTWKujcclsj4ezIkRI9\r\n" +
+"ZnuRaqjdimjmY4UyAJeIhvZuN4rj9kYyPje8H/lXA5r9jlMgz/m+8eFVQfmldtAs\r\n" +
+"NIGRhDrrSWZ6BmKUK+Q85ChZgG6Ajbw6gB0q0ZECgYEAxfTsQ08mQiMha5ykOd7b\r\n" +
+"4CvaXf1S13QMVggJXg0VyF7fKLcYey+F2khPRuELa5kK2heuN1cceX6T1uAlumF1\r\n" +
+"uRtvIx/euD7HCge/aiPyYIeOZYy7rHaK13jBETNZJrnudVQ2C2dljPXmuhftn36R\r\n" +
+"GdUuZ70gMt1wD11R7TcQmNU=\r\n" +
+"-----END PRIVATE KEY-----\r\n";
+
+// ownCloud/w3ccryptapi/k2048.pub.pem
+var SAMPLE_PUBLIC_KEY = "" +
+"-----BEGIN PUBLIC KEY-----\r\n" +
+"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwl3Gnd7S8rMI4lqcyCmn\r\n" +
+"qKU5qc3lfPnV1Mk+4g+A0C8UpuxJDMWOD5GODt4QoDjCDf1g6dVPuIA7aO5jFx4e\r\n" +
+"gCTSMX7odUsXmA3RIO8Qf/yhTg0kDabcD/acIO4b3vUQb6gEl4ctUDo7cU5MTMYt\r\n" +
+"8DnaG6WNxXlnq1ZpdAh2IeSXxV3E8y3xpnmgCWnjpdoHCf5oXiLSoStFEMU4l5/D\r\n" +
+"BDjuTTLp4V/Xv0HCffzAHYNfHY+Tv5O0ADWovxx17rocGCudYEteq5gl+3sYoIsn\r\n" +
+"PGHkWJNRDMvNyOpdg6M7Az5OAmIMpPxH1DtOEBlDJDSRo5QmOpOnBMTMftJxtVBo\r\n" +
+"DQIDAQAB\r\n" +
+"-----END PUBLIC KEY-----\r\n";
+
+// ownCloud/w3ccryptapi/mozilla/test-vectors.js
+var SAMPLE_PRIVATE_JWK = {
+      kty: "RSA",
+      n:  "pW5KDnAQF1iaUYfcfqhB0Vby7A42rVKkTf6x5h962ZHYxRBW_-2xYrTA8oOhK" +
+          "oijlN_1JqtykcuzB86r_OCx39XNlQgJbVsri2311nHvY3fAkhyyPCcKcOJZjm" +
+          "_4nRnxBazC0_DLNfKSgOE4a29kxO8i4eHyDQzoz_siSb2aITc",
+      e:  "AQAB",
+      d:  "M6UEKpCyfU9UUcqbu9C0R3GhAa-IQ0Cu-YhfKku-kuiUpySsPFaMj5eFOtB8A" +
+          "mbIxqPKCSnx6PESMYhEKfxNmuVf7olqEM5wfD7X5zTkRyejlXRQGlMmgxCcKr" +
+          "rKuig8MbS9L1PD7jfjUs7jT55QO9gMBiKtecbc7og1R8ajsyU",
+      p:  "5-iUJyCod1Fyc6NWBT6iobwMlKpy1VxuhilrLfyWeUjApyy8zKfqyzVwbgmh31W" +
+          "hU1vZs8w0Fgs7bc0-2o5kQw",
+      q:  "tp3KHPfU1-yB51uQ_MqHSrzeEj_ScAGAqpBHm25I3o1n7ST58Z2FuidYdPVCz" +
+          "SDccj5pYzZKH5QlRSsmmmeZ_Q",
+      dp: "KPoTk4ZVvh-KFZy6ylpy6hkMMAieGc0nSlVvNsT24Z9VSzTAd3kEJ7vdjdPt4" +
+          "kSDKPOF2Bsw6OQ7L_-gJ4YZeQ",
+      dq: "Gos485j6cSBJiY1_t57gp3ZoeRKZzfoJ78DlB6yyHtdDAe9b_Ui-RV6utuFng" +
+          "lWCdYCo5OjhQVHRUQqCo_LnKQ",
+      qi: "JxVqukEm0kqB86Uoy_sn9WiG-ECp9uhuF6RLlP6TGVhLjiL93h5aLjvYqluo2" +
+          "FhBlOshkKz4MrhH8To9JKefTQ"
+};
+
+// ownCloud/w3ccryptapi/mozilla/test-vectors.js
+var SAMPLE_PUBLIC_JWK = {
+      kty: "RSA",
+      n:  "pW5KDnAQF1iaUYfcfqhB0Vby7A42rVKkTf6x5h962ZHYxRBW_-2xYrTA8oOhK" +
+          "oijlN_1JqtykcuzB86r_OCx39XNlQgJbVsri2311nHvY3fAkhyyPCcKcOJZjm" +
+          "_4nRnxBazC0_DLNfKSgOE4a29kxO8i4eHyDQzoz_siSb2aITc",
+      e:  "AQAB",
+};
+</script>
+</body>
+
+</html>
