@@ -307,66 +307,6 @@ $('#btn-importverify').on('click', function (evt) {
   );
 });
 
-$('#btn1').on('click', function (e) {
-  var keylen = -1;
-  var pubexpUint8a = null;
-  var keyUsage = getKeyUsageList();
-
-  try {
-    keylen = parseInt($('#keylen').val());
-    if (keylen < 1) throw "keylen is not positive integer";
-  } catch(ex) { alert("鍵長の値が適切ではありません"); return; }
-
-  try {
-    var s = $('#pubexp').val();
-    if (s.length % 2 == 1) s = "0" + s;
-    if (! s.match(RE_HEXPATTERN)) throw "not hex string";
-    pubexpUint8a = hextouint8a(s);
-  } catch(ex) { alert("公開指数が適切ではありません"); return; }
-
-  if (keyUsage.length == 0) {
-    alert("鍵使用目的が指定されていません"); return;
-  }
-
-  var hextopem = KJUR.asn1.ASN1Util.getPEMStringFromHex;
-  $('#prvkey1').val('');
-  $('#pubkey1').val('');
-  var prvKeyObj = null;
-  var pubKeyObj = null;
-
-  var paramKeyGen = {
-    name: $('#algname').val(),
-    modulusLength: keylen,
-    publicExponent: pubexpUint8a,
-    hash: { name: "SHA-256" }
-  };
-
-  WCS.generateKey(paramKeyGen, true, keyUsage
-  ).then(
-    function(key) {
-      prvKeyObj = key.privateKey;
-      pubKeyObj = key.publicKey;
-      return WCS.exportKey('pkcs8', prvKeyObj);
-    },
-    function(err) { adderrmsg("generateKeyエラー" + err); }
-  ).then(
-    function(keyAB) {
-      var hex = abtohex(keyAB);
-      var prvp8ppem = hextopem(hex, "PRIVATE KEY");
-      $('#prvkey1').val(prvp8ppem);
-      return WCS.exportKey('spki', pubKeyObj);
-    },
-    function(err) { adderrmsg("exportKey prvエラー" + err); }
-  ).then(
-    function(keyAB) {
-      var hex = abtohex(keyAB);
-      var pubpem = hextopem(hex, "PUBLIC KEY");
-      $('#pubkey1').val(pubpem);
-    },
-    function(err) { adderrmsg("exportKey pubエラー" + err); }
-  );
-})
-
 // ownCloud/w3ccryptapi/k2048.p8p.pem
 var SAMPLE_PRIVATE_KEY = "" +
 "-----BEGIN PRIVATE KEY-----\r\n" +
