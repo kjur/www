@@ -1,0 +1,96 @@
+<!doctype>
+<html>
+<head>
+<meta charset="utf-8">
+<link type="text/css" rel="stylesheet" href="css/graph.css">
+<link type="text/css" rel="stylesheet" href="css/detail.css">
+<link type="text/css" rel="stylesheet" href="css/legend.css">
+<link type="text/css" rel="stylesheet" href="css/lines.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/d3.v3.js"></script>
+<script src="js/rickshaw.min.js"></script>
+<script src="js/00data03.js"></script>
+<style>
+#y_axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+</style>
+
+</head>
+<body>
+<h1>SSL Pulse Trends</h1>
+SSL Implementation trends powered by <a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+
+<h3>Signature Algorithms of SSL Certificates</h3>
+Certificate signature algorithm trend of Alexa top 200,000 sites.
+<div id="chart_container">
+<div id="y_axis"></div>
+<div id="chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+
+<script>
+// instantiate our graph! seriesData[0-2]->seriesCertAlg[0-2]
+var graph = new Rickshaw.Graph( {
+	element: document.getElementById("chart"),
+	width: 960,
+	height: 500,
+	renderer: 'line',
+	series: [
+		{
+			color: "#c05020",
+			data: seriesCertSigAlg[0],
+			name: 'SHA1withRSA',
+		}, {
+			color: "#30c020",
+			data: seriesCertSigAlg[1],
+			name: 'SHA256withRSA'
+		}, {
+			color: "#6060c0",
+			data: seriesCertSigAlg[2],
+			name: 'SHA256withECDSA'
+		}
+	]
+} );
+
+var y_ticks = new Rickshaw.Graph.Axis.Y( {
+	graph: graph,
+	orientation: 'left',
+	tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+	element: document.getElementById('y_axis')
+} );
+
+graph.render();
+
+var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+	graph: graph
+} );
+
+var legend = new Rickshaw.Graph.Legend( {
+	graph: graph,
+	element: document.getElementById('legend')
+
+} );
+
+var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+	graph: graph,
+	legend: legend
+} );
+
+var axes = new Rickshaw.Graph.Axis.Time( {
+	graph: graph
+} );
+axes.render();
+
+//alert(JSON.stringify(seriesCertSigAlg));
+</script>
+
+</body>
+</html>
