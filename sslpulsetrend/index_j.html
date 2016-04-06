@@ -17,6 +17,7 @@
 <script src="js/data_kx.js"></script>
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
+<script src="js/data_http2.js"></script>
 <style>
 .yaxis {
   position: absolute;
@@ -150,6 +151,21 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
+<h3>NPNにおけるHTTP/2プロトコルのサポート率</h3>
+NPN(Next Protocol Negotiation)においてサーバーが提示するプロトコルのうち、HTTP/2やそのドラフトのサポートの比率の推移は以下の通りです。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="http2_yaxis" class="yaxis"></div>
+<div id="http2_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="http2_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
 <script>
 function RickshawUtilGraph(id_head, templ, seriesData, lang) {
   var id_chart = id_head + "_chart";
@@ -223,6 +239,7 @@ RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "jp");
 RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
+RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
 </script>
 
 <br clear="all"/>
