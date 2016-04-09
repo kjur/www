@@ -18,6 +18,7 @@
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
 <script src="js/data_http2.js"></script>
+<script src="js/data_grade.js"></script>
 <style>
 .yaxis {
   position: absolute;
@@ -34,8 +35,28 @@
 サイトでは、Alexa トップ20万のアクセス数のサイトのSSLに関する統計情報を
 毎月公開していますが、そのデータ利用の許可いただき、
 SSLに関するデータの推移をグラフで示します。
+本ページはGoogle Chromeでしか見れないかもしれません。
+
+<h3>SSL Pulseのサイト評価グレードの分布の推移</h3>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+ではSSLの設定の安全レベルであるグレードをAからFで評価しています。
+その分布の推移をグラフにしました。2014年2月には大きく評価方法が変わったようです。
+その途中でも脆弱性の評価項目が随時追加され、評価値が見直されているようです。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="grade_yaxis" class="yaxis"></div>
+<div id="grade_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="grade_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
 
 <h3>SSL/TLSに関連した脆弱性の未対応推移</h3>
+RC4ストリーム暗号の危殆化やPOODLEの影響など、公開された脆弱性の影響を受けるサイトの比率をグラフにしています。上に行くほど脆弱性の影響を受けるサイトの比率が多いという意味です。多くの脆弱性対応は徐々に対策され、徐々に比率が下がってくるのですが、BEASTに関してだけ、リスクを受容するという方向にあり、影響を受けるサイトが増えています。
 
 <br clear="all"/>
 <div id="chart_container">
@@ -167,12 +188,18 @@ NPN(Next Protocol Negotiation)においてサーバーが提示するプロト�
 <br clear="all"/>
 
 <script>
-function RickshawUtilGraph(id_head, templ, seriesData, lang) {
+function RickshawUtilGraph(id_head, templ, seriesData, lang, extProp, extColor) {
   var id_chart = id_head + "_chart";
   var id_yaxis = id_head + "_yaxis";
   var id_legend = id_head + "_legend";
 
   var prop = jQuery.extend(true, {}, templ);
+  if (typeof extProp === "object") {
+    for (let p in extProp) {
+      prop[p] = extProp[p];
+    }
+  }
+
   prop.element = document.getElementById(id_chart);
   if (prop.series.length < seriesData.length) throw "seriesData too long";
   for (var i = 0; i < seriesData.length; i++) {
@@ -185,6 +212,13 @@ function RickshawUtilGraph(id_head, templ, seriesData, lang) {
   for (var i = prop.series.length - seriesData.length; i > 0; i--) {
     prop.series.pop();
   }
+
+  if (typeof extColor === "object") {
+    for (var i = 0; i < extColor.length; i++) {
+      prop.series[i].color = extColor[i];
+    }
+  }
+
   //alert(JSON.stringify(prop));
 
   var graph = new Rickshaw.Graph(prop);
@@ -240,6 +274,11 @@ RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
+RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp", 
+		  {"renderer":"area","stack": true},
+                  ["#cc0000", "#cc3300", "#cc6400", "#cc9900", 
+                   "#cccc00", "#4ced77", "#18ba5f", "#139e70"]
+);
 </script>
 
 <br clear="all"/>
