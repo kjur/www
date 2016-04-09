@@ -19,6 +19,7 @@
 <script src="js/data_kxecdh.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
+<script src="js/data_meta.js"></script>
 <style>
 .yaxis {
   position: absolute;
@@ -36,6 +37,9 @@
 毎月公開していますが、そのデータ利用の許可いただき、
 SSLに関するデータの推移をグラフで示します。
 本ページはGoogle Chromeでしか見れないかもしれません。
+<div>
+データ取得期間：<span id="datebegin"></span> 〜 <span id="dateend"></span>
+</div>
 
 <h3>SSL Pulseのサイト評価グレードの分布の推移</h3>
 <a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
@@ -188,6 +192,9 @@ NPN(Next Protocol Negotiation)においてサーバーが提示するプロト�
 <br clear="all"/>
 
 <script>
+$("#datebegin").text(sslPulseMetadata.begin.string_jp);
+$("#dateend").text(sslPulseMetadata.end.string_jp);
+
 function RickshawUtilGraph(id_head, templ, seriesData, lang, extProp, extColor) {
   var id_chart = id_head + "_chart";
   var id_yaxis = id_head + "_yaxis";
