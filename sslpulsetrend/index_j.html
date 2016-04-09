@@ -202,7 +202,7 @@ function RickshawUtilGraph(id_head, templ, seriesData, lang, extProp, extColor) 
 
   var prop = jQuery.extend(true, {}, templ);
   if (typeof extProp === "object") {
-    for (let p in extProp) {
+    for (var p in extProp) {
       prop[p] = extProp[p];
     }
   }
