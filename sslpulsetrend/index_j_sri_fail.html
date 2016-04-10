@@ -1,0 +1,316 @@
+<!DOCUTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>SSL Pulseデータの推移 (SSL Pulse Trends)</title>
+<link type="text/css" rel="stylesheet" href="css/graph.css">
+<link type="text/css" rel="stylesheet" href="css/detail.css">
+<link type="text/css" rel="stylesheet" href="css/legend.css">
+<link type="text/css" rel="stylesheet" href="css/lines.css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/d3.v3.js"></script>
+<script src="js/rickshaw.min.js"></script>
+<script src="js/data_crtsigalg.js"></script>
+<script src="js/data_proto.js"></script>
+<script src="js/data_vuln.js"></script>
+<script src="js/data_keysize.js"></script>
+<script src="js/data_newtech.js"></script>
+<script src="js/data_kx.js"></script>
+<script src="js/data_kxdh.js"></script>
+<script src="js/data_kxecdh.js"></script>
+<script src="js/data_http2.js"></script>
+<script src="js/data_grade.js"></script>
+<script src="js/data_meta.js" integrity="sha256-biR4Q8prL6070ZVUy83q71ICAX+md85gEoqcH1VT2DU=" crossorigin="anonymous"></script>
+<style>
+.yaxis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+</style>
+</head>
+
+<body>
+<a href="#grade">グレード</a> | <a href="#vuln">脆弱性</a> | 
+<a href="#proto">プロトコル</a> | <a href="#sigalg">証明書署名方式</a> | 
+<a href="#keysize">証明書鍵長</a> | <a href="#newtech">新技術</a> | 
+<a href="#kx">鍵交換鍵長</a> | <a href="#kxdh">DH鍵長</a> | 
+<a href="#kxecdh">ECDH鍵長</a> | <a href="#http2">HTTP/2 NPN</a>
+
+<h1>SSL Pulseデータの推移 (SSL Pulse Trends)</h1>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+サイトでは、Alexa トップ20万のアクセス数のサイトのSSLに関する統計情報を
+毎月公開していますが、そのデータ利用の許可いただき、
+SSLに関するデータの推移をグラフで示します。
+<div>
+データ取得期間：<span id="datebegin"></span> 〜 <span id="dateend"></span>
+</div>
+
+<a name="grade"><h3>SSL Pulseのサイト評価グレードの分布の推移</h3></a>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+ではSSLの設定の安全レベルであるグレードをAからFで評価しています。
+その分布の推移をグラフにしました。2014年2月には大きく評価方法が変わったようです。
+その途中でも脆弱性の評価項目が随時追加され、評価値が見直されているようです。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="grade_yaxis" class="yaxis"></div>
+<div id="grade_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="grade_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="vuln"><h3>SSL/TLSに関連した脆弱性の未対応推移</h3></a>
+RC4ストリーム暗号の危殆化やPOODLEの影響など、公開された脆弱性の影響を受けるサイトの比率をグラフにしています。上に行くほど脆弱性の影響を受けるサイトの比率が多いという意味です。多くの脆弱性対応は徐々に対策され、徐々に比率が下がってくるのですが、BEASTに関してだけ、リスクを受容するという方向にあり、影響を受けるサイトが増えています。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="vuln_yaxis" class="yaxis"></div>
+<div id="vuln_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="vuln_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="proto"><h3>SSL/TLSプロトコルの使用比率推移</h3></a>
+POODLE攻撃が公表されて以降、SSLv3の利用は急激に下がりました。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="proto_yaxis" class="yaxis"></div>
+<div id="proto_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="proto_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="sigalg"><h3>SSLサーバー証明書の署名アルゴリズムの使用比率推移</h3></a>
+SSLサーバー証明書の使用している署名アルゴリズムの使用比率の推移を示します。
+2017年1月にSHA1withRSAアルゴリズムの使用禁止が各社からアナウンスされ、
+SHA256withRSAへの移行が進んでいます。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="crtsig_yaxis" class="yaxis"></div>
+<div id="crtsig_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="crtsig_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="keysize"><h3>SSLサーバー証明書の鍵長の使用比率推移</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="keysize_yaxis" class="yaxis"></div>
+<div id="keysize_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="keysize_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="newtech"><h3>SSL/TLSの新技術のサポート率</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="newtech_yaxis" class="yaxis"></div>
+<div id="newtech_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="newtech_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kx"><h3>鍵交換の鍵長の利用率</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kx_yaxis" class="yaxis"></div>
+<div id="kx_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kx_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kxdh"><h3>DH(E)鍵交換の鍵長の利用率</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kxdh_yaxis" class="yaxis"></div>
+<div id="kxdh_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kxdh_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kxecdh"><h3>ECDH(E)鍵交換の鍵長の利用率</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kxecdh_yaxis" class="yaxis"></div>
+<div id="kxecdh_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kxecdh_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="http2"><h3>NPNにおけるHTTP/2プロトコルのサポート率</h3></a>
+NPN(Next Protocol Negotiation)においてサーバーが提示するプロトコルのうち、HTTP/2やそのドラフトのサポートの比率の推移は以下の通りです。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="http2_yaxis" class="yaxis"></div>
+<div id="http2_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="http2_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<script>
+$("#datebegin").text(sslPulseMetadata.begin.string_jp);
+$("#dateend").text(sslPulseMetadata.end.string_jp);
+
+function RickshawUtilGraph(id_head, templ, seriesData, lang, extProp, extColor) {
+  var id_chart = id_head + "_chart";
+  var id_yaxis = id_head + "_yaxis";
+  var id_legend = id_head + "_legend";
+
+  var prop = jQuery.extend(true, {}, templ);
+  if (typeof extProp === "object") {
+    for (var p in extProp) {
+      prop[p] = extProp[p];
+    }
+  }
+
+  prop.element = document.getElementById(id_chart);
+  if (prop.series.length < seriesData.length) throw "seriesData too long";
+  for (var i = 0; i < seriesData.length; i++) {
+    prop.series[i].data = seriesData[i].data;
+    prop.series[i].name = seriesData[i].name;
+    if (lang === "jp" && seriesData[i].name_jp !== undefined) {
+      prop.series[i].name = seriesData[i].name_jp;
+    }
+  }
+  for (var i = prop.series.length - seriesData.length; i > 0; i--) {
+    prop.series.pop();
+  }
+
+  if (typeof extColor === "object") {
+    for (var i = 0; i < extColor.length; i++) {
+      prop.series[i].color = extColor[i];
+    }
+  }
+
+  //alert(JSON.stringify(prop));
+
+  var graph = new Rickshaw.Graph(prop);
+
+  //	tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+  var y_ticks = new Rickshaw.Graph.Axis.Y({
+    graph: graph,
+    orientation: 'left',
+    tickFormat: function(t) { return t + "%"; },
+    element: document.getElementById(id_yaxis)
+  });
+
+  graph.render();
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail({
+    graph: graph
+  });
+
+  var legend = new Rickshaw.Graph.Legend({
+    graph: graph,
+    element: document.getElementById(id_legend)
+  });
+
+  var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+    graph: graph,
+    legend: legend
+  });
+
+  var axes = new Rickshaw.Graph.Axis.Time({
+    graph: graph
+  });
+  axes.render();
+
+  return graph;
+}
+
+var lineTempl = {
+  element: null,
+  width: 960,
+  height: 500,
+  renderer: 'line',
+  series: [{"color": "#c05020"}, {"color": "#30c020"}, {"color": "#6060c0"},
+           {"color": "#66ccff"}, {"color": "#ff99a0"}, {"color": "#ff9900"},
+           {"color": "#9a0079"}, {"color": "#663300"}, {"color": "#faf500"}]
+};
+
+RickshawUtilGraph("crtsig", lineTempl, seriesCertSigAlg, "jp");
+RickshawUtilGraph("proto", lineTempl, seriesProto, "jp");
+RickshawUtilGraph("vuln", lineTempl, seriesVuln, "jp");
+RickshawUtilGraph("keysize", lineTempl, seriesKeysize, "jp");
+RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "jp");
+RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
+RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
+RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
+RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
+RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp", 
+		  {"renderer":"area","stack": true},
+                  ["#cc0000", "#cc3300", "#cc6400", "#cc9900", 
+                   "#cccc00", "#4ced77", "#18ba5f", "#139e70"]
+);
+</script>
+
+<br clear="all"/>
+<h3>参考情報</h3>
+過去には、ブログでこのようなトレンド情報を公開していました。2014年11月から隔月ぐらいで情報をアップしていました。
+<ul>
+<li><a href="http://blog.livedoor.jp/k_urushima/archives/1786599.html">自堕落な技術者の日記：SSL Pulseの統計情報で見るSSL/TLS (2015年12月版)</a></li>
+</ul>
+
+<h3>謝辞</h3>
+<p>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>のデータの再利用を快諾頂きました<a href="https://blog.ivanristic.com/">Ivan Risti&#263;</a>さん、ありがとうございました。
+インタラクティブなグラフ表示には<a href="http://code.shutterstock.com/rickshaw/">Rickshaw</a>
+を使用しています。
+</p>
+
+<div align="center">
+&copy; 2016 Kenji Urushima (@kjur) All Rights Reserved.
+</div>
+
+</body>
+</html>
