@@ -32,6 +32,12 @@
 </head>
 
 <body>
+<a href="#grade">グレード</a> | <a href="#vuln">脆弱性</a> | 
+<a href="#proto">プロトコル</a> | <a href="#sigalg">証明書署名方式</a> | 
+<a href="#keysize">証明書鍵長</a> | <a href="#newtech">新技術</a> | 
+<a href="#kx">鍵交換鍵長</a> | <a href="#kxdh">DH鍵長</a> | 
+<a href="#kxecdh">ECDH鍵長</a>
+
 <h1>SSL Pulseデータの推移 (SSL Pulse Trends)</h1>
 <a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
 サイトでは、Alexa トップ20万のアクセス数のサイトのSSLに関する統計情報を
@@ -42,7 +48,7 @@ SSLに関するデータの推移をグラフで示します。
 データ取得期間：<span id="datebegin"></span> 〜 <span id="dateend"></span>
 </div>
 
-<h3>SSL Pulseのサイト評価グレードの分布の推移</h3>
+<a name="grade"><h3>SSL Pulseのサイト評価グレードの分布の推移</h3></a>
 <a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
 ではSSLの設定の安全レベルであるグレードをAからFで評価しています。
 その分布の推移をグラフにしました。2014年2月には大きく評価方法が変わったようです。
@@ -60,7 +66,7 @@ SSLに関するデータの推移をグラフで示します。
 </div>
 <br clear="all"/>
 
-<h3>SSL/TLSに関連した脆弱性の未対応推移</h3>
+<a name="vuln"><h3>SSL/TLSに関連した脆弱性の未対応推移</h3></a>
 RC4ストリーム暗号の危殆化やPOODLEの影響など、公開された脆弱性の影響を受けるサイトの比率をグラフにしています。上に行くほど脆弱性の影響を受けるサイトの比率が多いという意味です。多くの脆弱性対応は徐々に対策され、徐々に比率が下がってくるのですが、BEASTに関してだけ、リスクを受容するという方向にあり、影響を受けるサイトが増えています。
 
 <br clear="all"/>
@@ -75,7 +81,7 @@ RC4ストリーム暗号の危殆化やPOODLEの影響など、公開された�
 </div>
 <br clear="all"/>
 
-<h3>SSL/TLSプロトコルの使用比率推移</h3>
+<a name="proto"><h3>SSL/TLSプロトコルの使用比率推移</h3></a>
 POODLE攻撃が公表されて以降、SSLv3の利用は急激に下がりました。
 
 <br clear="all"/>
@@ -90,7 +96,7 @@ POODLE攻撃が公表されて以降、SSLv3の利用は急激に下がりまし
 </div>
 <br clear="all"/>
 
-<h3>SSLサーバー証明書の署名アルゴリズムの使用比率推移</h3>
+<a name="sigalg"><h3>SSLサーバー証明書の署名アルゴリズムの使用比率推移</h3></a>
 SSLサーバー証明書の使用している署名アルゴリズムの使用比率の推移を示します。
 2017年1月にSHA1withRSAアルゴリズムの使用禁止が各社からアナウンスされ、
 SHA256withRSAへの移行が進んでいます。
@@ -107,7 +113,7 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<h3>SSLサーバー証明書の鍵長の使用比率推移</h3>
+<a name="keysize"><h3>SSLサーバー証明書の鍵長の使用比率推移</h3></a>
 
 <br clear="all"/>
 <div id="chart_container">
@@ -121,7 +127,7 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<h3>SSL/TLSの新技術のサポート率</h3>
+<a name="newtech"><h3>SSL/TLSの新技術のサポート率</h3></a>
 
 <br clear="all"/>
 <div id="chart_container">
@@ -135,7 +141,7 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<h3>鍵交換の鍵長の利用率</h3>
+<a name="kx"><h3>鍵交換の鍵長の利用率</h3></a>
 
 <br clear="all"/>
 <div id="chart_container">
@@ -149,7 +155,7 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<h3>DH(E)鍵交換の鍵長の利用率</h3>
+<a name="kxdh"><h3>DH(E)鍵交換の鍵長の利用率</h3></a>
 
 <br clear="all"/>
 <div id="chart_container">
@@ -163,7 +169,7 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<h3>ECDH(E)鍵交換の鍵長の利用率</h3>
+<a name="kxecdh"><h3>ECDH(E)鍵交換の鍵長の利用率</h3></a>
 
 <br clear="all"/>
 <div id="chart_container">
