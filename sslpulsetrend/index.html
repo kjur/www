@@ -1,96 +1,303 @@
-<!doctype>
-<html>
+<!DOCUTYPE html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<title>SSL Pulse Trends</title>
 <link type="text/css" rel="stylesheet" href="css/graph.css">
 <link type="text/css" rel="stylesheet" href="css/detail.css">
 <link type="text/css" rel="stylesheet" href="css/legend.css">
 <link type="text/css" rel="stylesheet" href="css/lines.css">
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/d3.v3.js"></script>
 <script src="js/rickshaw.min.js"></script>
-<script src="js/00data03.js"></script>
+<script src="js/data_crtsigalg.js"></script>
+<script src="js/data_proto.js"></script>
+<script src="js/data_vuln.js"></script>
+<script src="js/data_keysize.js"></script>
+<script src="js/data_newtech.js"></script>
+<script src="js/data_kx.js"></script>
+<script src="js/data_kxdh.js"></script>
+<script src="js/data_kxecdh.js"></script>
+<script src="js/data_http2.js"></script>
+<script src="js/data_grade.js"></script>
+<script src="js/data_meta.js"></script>
 <style>
-#y_axis {
+.yaxis {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 40px;
 }
 </style>
-
 </head>
-<body>
-<h1>SSL Pulse Trends</h1>
-SSL Implementation trends powered by <a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
 
-<h3>Signature Algorithms of SSL Certificates</h3>
-Certificate signature algorithm trend of Alexa top 200,000 sites.
+<body>
+<a href="#grade">grade</a> | <a href="#vuln">vulns</a> | 
+<a href="#proto">protocol</a> | <a href="#sigalg">signature algorithm</a> | 
+<a href="#keysize">certificate key size</a> | <a href="#newtech">new technology</a> | 
+<a href="#kx">key exchange size</a> | <a href="#kxdh">DH key exchange size</a> | 
+<a href="#kxecdh">ECDH key exchange size</a> | <a href="#http2">HTTP/2 NPN</a>
+
+<h1>SSL Pulse Trends</h1>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+site provides SSL setting statistics data of Alexa top 0.2M sites every month.
+Ivan Ristic who is the SSL Pulse site owner have kindly approved 
+re-use of data. So trend data of SSL Pulse will be provided in this site.
+<div>
+SSL Pulse data period: <span id="datebegin"></span> - <span id="dateend"></span>
+</div>
+
+<a name="grade"><h3>SSL Pulse Grade Trends</h3></a>
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a>
+
+<br clear="all"/>
 <div id="chart_container">
-<div id="y_axis"></div>
-<div id="chart"></div>
+<div id="grade_yaxis" class="yaxis"></div>
+<div id="grade_chart"></div>
 <div id="legend_container">
   <div id="smoother" title="Smoothing"></div>
-  <div id="legend"></div>
+  <div id="grade_legend"></div>
 </div>
 <div id="slider"></div>
 </div>
+<br clear="all"/>
+
+<a name="vuln"><h3>SSL/TLS Vulnerabilities</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="vuln_yaxis" class="yaxis"></div>
+<div id="vuln_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="vuln_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="proto"><h3>SSL/TLS Protocols</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="proto_yaxis" class="yaxis"></div>
+<div id="proto_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="proto_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="sigalg"><h3>Signature Algorithms for SSL Server Certificate</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="crtsig_yaxis" class="yaxis"></div>
+<div id="crtsig_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="crtsig_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="keysize"><h3>Key Size of SSL Server Certificate</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="keysize_yaxis" class="yaxis"></div>
+<div id="keysize_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="keysize_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="newtech"><h3>Support for SSL/TLS New Technology</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="newtech_yaxis" class="yaxis"></div>
+<div id="newtech_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="newtech_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kx"><h3>Key Size for Key Exchange</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kx_yaxis" class="yaxis"></div>
+<div id="kx_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kx_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kxdh"><h3>Key Size for DH(E) Key Exchange</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kxdh_yaxis" class="yaxis"></div>
+<div id="kxdh_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kxdh_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="kxecdh"><h3>Key Size for ECDH(E) Key Exchange</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="kxecdh_yaxis" class="yaxis"></div>
+<div id="kxecdh_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="kxecdh_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="http2"><h3>HTTP/2 support protocol in NPN</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="http2_yaxis" class="yaxis"></div>
+<div id="http2_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="http2_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
 
 <script>
-// instantiate our graph! seriesData[0-2]->seriesCertAlg[0-2]
-var graph = new Rickshaw.Graph( {
-	element: document.getElementById("chart"),
-	width: 960,
-	height: 500,
-	renderer: 'line',
-	series: [
-		{
-			color: "#c05020",
-			data: seriesCertSigAlg[0],
-			name: 'SHA1withRSA',
-		}, {
-			color: "#30c020",
-			data: seriesCertSigAlg[1],
-			name: 'SHA256withRSA'
-		}, {
-			color: "#6060c0",
-			data: seriesCertSigAlg[2],
-			name: 'SHA256withECDSA'
-		}
-	]
-} );
+$("#datebegin").text(sslPulseMetadata.begin.string);
+$("#dateend").text(sslPulseMetadata.end.string);
 
-var y_ticks = new Rickshaw.Graph.Axis.Y( {
-	graph: graph,
-	orientation: 'left',
-	tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-	element: document.getElementById('y_axis')
-} );
+function RickshawUtilGraph(id_head, templ, seriesData, lang, extProp, extColor) {
+  var id_chart = id_head + "_chart";
+  var id_yaxis = id_head + "_yaxis";
+  var id_legend = id_head + "_legend";
 
-graph.render();
+  var prop = jQuery.extend(true, {}, templ);
+  if (typeof extProp === "object") {
+    for (var p in extProp) {
+      prop[p] = extProp[p];
+    }
+  }
 
-var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-	graph: graph
-} );
+  prop.element = document.getElementById(id_chart);
+  if (prop.series.length < seriesData.length) throw "seriesData too long";
+  for (var i = 0; i < seriesData.length; i++) {
+    prop.series[i].data = seriesData[i].data;
+    prop.series[i].name = seriesData[i].name;
+    if (lang === "jp" && seriesData[i].name_jp !== undefined) {
+      prop.series[i].name = seriesData[i].name_jp;
+    }
+  }
+  for (var i = prop.series.length - seriesData.length; i > 0; i--) {
+    prop.series.pop();
+  }
 
-var legend = new Rickshaw.Graph.Legend( {
-	graph: graph,
-	element: document.getElementById('legend')
+  if (typeof extColor === "object") {
+    for (var i = 0; i < extColor.length; i++) {
+      prop.series[i].color = extColor[i];
+    }
+  }
 
-} );
+  //alert(JSON.stringify(prop));
 
-var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
-	graph: graph,
-	legend: legend
-} );
+  var graph = new Rickshaw.Graph(prop);
 
-var axes = new Rickshaw.Graph.Axis.Time( {
-	graph: graph
-} );
-axes.render();
+  //	tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+  var y_ticks = new Rickshaw.Graph.Axis.Y({
+    graph: graph,
+    orientation: 'left',
+    tickFormat: function(t) { return t + "%"; },
+    element: document.getElementById(id_yaxis)
+  });
 
-//alert(JSON.stringify(seriesCertSigAlg));
+  graph.render();
+
+  var hoverDetail = new Rickshaw.Graph.HoverDetail({
+    graph: graph
+  });
+
+  var legend = new Rickshaw.Graph.Legend({
+    graph: graph,
+    element: document.getElementById(id_legend)
+  });
+
+  var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+    graph: graph,
+    legend: legend
+  });
+
+  var axes = new Rickshaw.Graph.Axis.Time({
+    graph: graph
+  });
+  axes.render();
+
+  return graph;
+}
+
+var lineTempl = {
+  element: null,
+  width: 960,
+  height: 500,
+  renderer: 'line',
+  series: [{"color": "#c05020"}, {"color": "#30c020"}, {"color": "#6060c0"},
+           {"color": "#66ccff"}, {"color": "#ff99a0"}, {"color": "#ff9900"},
+           {"color": "#9a0079"}, {"color": "#663300"}, {"color": "#faf500"}]
+};
+
+RickshawUtilGraph("crtsig", lineTempl, seriesCertSigAlg, "en");
+RickshawUtilGraph("proto", lineTempl, seriesProto, "en");
+RickshawUtilGraph("vuln", lineTempl, seriesVuln, "en");
+RickshawUtilGraph("keysize", lineTempl, seriesKeysize, "en");
+RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "en");
+RickshawUtilGraph("kx", lineTempl, seriesKx, "en");
+RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "en");
+RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "en");
+RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "en");
+RickshawUtilGraph("grade", lineTempl, seriesGrade, "en", 
+		  {"renderer":"area","stack": true},
+                  ["#cc0000", "#cc3300", "#cc6400", "#cc9900", 
+                   "#cccc00", "#4ced77", "#18ba5f", "#139e70"]
+);
 </script>
+
+<br clear="all"/>
+
+<h3>ACKKNOWLEDGEMENT</h3>
+<p>
+Special thanks for <a href="https://blog.ivanristic.com/">Ivan Risti&#263;</a> and
+<a href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</a> site to approve re-use of its data.
+As for graphs 
+<a href="http://code.shutterstock.com/rickshaw/">Rickshaw</a> library is used.
+</p>
+
+<div align="center">
+&copy; 2016 Kenji Urushima (@kjur) All Rights Reserved.
+</div>
 
 </body>
 </html>
