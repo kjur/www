@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W3C WebCrypto APIの遊び場</title>
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Web Cryptoサンプル</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">サンプル一覧</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container theme-showcase" role="main">
+
+<div class="jumbotron">
+<h1>W3C Web Cryptography APIの遊び場</h1>
+<p>
+<a href="http://www.w3.org/TR/WebCryptoAPI/">W3C Web Cryptography API</a>を使って作ってみたサンプルの置き場です。API自体、強い環境依存があり、動いたり、動かなかったりしますので、どうか、自己責任、ノークレームでお願いします。
+</p>
+</div>
+
+<dl>
+<dt><b><a href="genrsa.html">RSA鍵ペアの生成</a></b>
+<dd>RSA鍵ペアを生成し、PKCS#8フォーマットで秘密鍵、公開鍵を表示します。
+<dt><b><a href="digest.html">ハッシュ計算</a></b>
+<dd>UTF-8のテキストに対してSHA-1/256/384/512でハッシュ計算した結果を表示します。
+<dt><b><a href="rsasignverify.html">RSA署名と検証</a></b>
+<dd>UTF-8のテキストに対してRSA署名と検証が行えます。
+鍵はPKCS#8 PEM形式やJWK形式でインポートしたものも使えますし、
+ブラウザで鍵ペア生成したものも使えます。
+</dl>
+
+<hr/>
+
+<footer class="bs-docs-footer" role="contentinfo">
+<hr>
+<div align="center">&copy; 2015-2016 Kenji Urushima All Rights Reserved.</div>
+</footer>
+
+</div> <!-- /container -->
+
+</body>
+
+</html>
