@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="jsrsasign-latest-all-min.js"></script>
+<script src="util.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECC鍵ペアの生成</title>
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Web Cryptoサンプル</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">サンプル一覧</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container theme-showcase" role="main">
+
+<div class="jumbotron">
+<h1>ECC鍵ペアの生成</h1>
+<p>
+<a href="http://www.w3.org/TR/WebCryptoAPI/">W3C Web Cryptography API</a>
+を使ってECCの秘密鍵と公開鍵の鍵ペアを作り、OpenSSL等でも使えるようPKCS#8 PEM形式でエクスポートします。
+</p>
+</div>
+
+<div class="formgroup">
+<label for="alg">楕円曲線暗号 曲線名</label>
+<br/>
+<select id="curve">
+<option value="P-256"> P-256
+<option value="P-384"> P-384
+<option value="P-521"> P-521
+</select>
+</div>
+
+<hr/>
+<div>
+<button id="btn1" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> 鍵ペア生成</button>
+</div>
+<hr/>
+
+<p>
+秘密鍵(PEM形式)<br/>
+<textarea id="prvkey1" rows="5" cols="100"></textarea>
+</p>
+<p>
+公開鍵(PEM形式)<br/>
+<textarea id="pubkey1" rows="5" cols="100"></textarea>
+</p>
+
+<hr/>
+
+<h3>動作確認実績</h3>
+<p>
+このページは下記環境で動作を確認しました。
+<ul>
+<li>Firefox 48 for OSX - エラー(NotSupportedError: Operation is not supported)</li>
+<li>Chrome 52 for OSX - 問題なく動作</li>
+<!--
+<li>Firefox 34 for Android - 問題なく動作</li>
+<li>Chrome 39 for Android - HTTPSサイトでしか実行できない(NotSupportedError: Only secure origins are allowed. http://goo.gl/lq4gCo</li>
+<li>Safari 7 for OSX - 問題なく動作</li>
+<li>IE11 for Win8.1 - Promiseパターンに対応していないためエラー</li>
+-->
+</ul>
+</p>
+
+<h3>補足説明</h3>
+<ul>
+<li>署名(RSASSA-PKCS1-v1_5やRSA-PSS)の目的で鍵生成するには鍵ペアの使用目的にsignとverifyを加える必要があります。</li>
+<li>暗号化・秘匿(RSA-OAEP)の目的で鍵生成するには鍵ペアの使用目的にencryptとdecryptを加える必要があります。</li>
+<li>W3C Web Crypto APIのpkcs8やspkiを使った鍵のエクスポート(exportKey)では、DERバイナリ形式のArrayBufferデータとして生成されます。PEM形式のデータに変換するには<a href="http://kjur.github.io/jsrsasign/">jsrsasign</a>などサードパーティのライブラリが必要になります。</li>
+</ul>
+
+<footer class="bs-docs-footer" role="contentinfo">
+<hr>
+<div align="center">&copy; 2015 Kenji Urushima All Rights Reserved.</div>
+</footer>
+
+</div> <!-- /container -->
+
+
+<script>
+function adderrmsg(msg) {
+  $('#prvkey1').val($('#prvkey1').val() + "\n" + msg);
+}
+function getKeyUsageList() {
+  var a = [];
+  if ($('#cbx-sign:checked').val() == "on")       a.push("sign");
+  if ($('#cbx-verify:checked').val() == "on")     a.push("verify");
+  if ($('#cbx-deriveKey:checked').val() == "on")  a.push("deriveKey");
+  if ($('#cbx-deriveBits:checked').val() == "on") a.push("deriveBits");
+  if ($('#cbx-encrypt:checked').val() == "on")    a.push("encrypt");
+  if ($('#cbx-decrypt:checked').val() == "on")    a.push("decrypt");
+  if ($('#cbx-wrapKey:checked').val() == "on")    a.push("wrapKey");
+  if ($('#cbx-unwrapKey:checked').val() == "on")  a.push("unwrapKey");
+  return a;
+}
+
+var RE_HEXPATTERN = /^[0-9A-Fa-f]+$/;
+$('#prvkey1').val('');
+$('#pubkey1').val('');
+
+$('#btn1').on('click', function (e) {
+  var keylen = -1;
+  var pubexpUint8a = null;
+
+  var hextopem = KJUR.asn1.ASN1Util.getPEMStringFromHex;
+  $('#prvkey1').val('');
+  $('#pubkey1').val('');
+  var prvKeyObj = null;
+  var pubKeyObj = null;
+
+  var paramKeyGen = {
+    name: "ECDSA",
+    namedCurve: $('#curve').val(),
+  };
+
+  WCS.generateKey(paramKeyGen, true, ["sign", "verify"]
+  ).then(
+    function(key) {
+      prvKeyObj = key.privateKey;
+      pubKeyObj = key.publicKey;
+      return WCS.exportKey('pkcs8', prvKeyObj);
+    },
+    function(err) { adderrmsg("generateKeyエラー" + err); }
+  ).then(
+    function(keyAB) {
+      var hex = abtohex(keyAB);
+      var prvp8ppem = hextopem(hex, "PRIVATE KEY");
+      $('#prvkey1').val(prvp8ppem);
+      return WCS.exportKey('spki', pubKeyObj);
+    },
+    function(err) { adderrmsg("exportKey prvエラー" + err); }
+  ).then(
+    function(keyAB) {
+      var hex = abtohex(keyAB);
+      var pubpem = hextopem(hex, "PUBLIC KEY");
+      $('#pubkey1').val(pubpem);
+    },
+    function(err) { adderrmsg("exportKey pubエラー" + err); }
+  );
+})
+</script>
+</body>
+
+</html>
