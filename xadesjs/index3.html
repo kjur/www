@@ -174,6 +174,11 @@ function btnPPrint_onclick() {
   var oXml = document.getElementById("signedXML");
   //alert(oXml.innerText);
   oXml.innerText = formatXml(oXml.innerText);
+
+  var block = document.getElementById("signedXML");
+  block.textContent = signedDocument;
+  Prism.highlightElement(block);
+  block.scrollTop = block.scrollHeight;
 }
     </script>
     <div style="left:10%;top:25%;position:relative;width:80%">
@@ -183,7 +188,7 @@ function btnPPrint_onclick() {
         <button id="btnPPrint" onclick="btnPPrint_onclick()" class="button">Pretty Print</button>
     </div>
     <div>
-    23:52
+    23:59
     <a href="index.html">index.html</a> | 
     <a href="index2.html">index2.html</a> | 
     <a href="index2.html">index3.html</a> | 
