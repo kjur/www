@@ -137,16 +137,21 @@
                      console.log("Error signing document: " + e);
              });
         }
+
+function btnPPrint_onclick() {
+  var oXml = document.getElementById("signedXML");
+  alert(oXml.innerText);
+}
     </script>
     <div style="left:10%;top:25%;position:relative;width:80%">
         <pre id="signedXML" style="height:400px;" contenteditable="true" data-src="a.xml"><code class="language-xml"></code></pre>
         <button id="btnSign" onclick="btnSign_onclick()" class="button">Sign</button>
         <button id="btnVerify" onclick="btnVerify_onclick()" class="button">Verify</button>
+        <button id="btnPPrint" onclick="btnPPrint_onclick()" class="button">Pretty Print</button>
     </div>
     <div>
     <a href="index.html">index.html</a> | 
     <a href="index2.html">index2.html</a> | 
-    <a href="index3.html">index3.html</a> | 
     </div>
 </body>
 </html>
