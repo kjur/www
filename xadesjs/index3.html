@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/PKI.js/master/org/pkijs/x509_schema.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/PKI.js/master/org/pkijs/x509_simpl.js"></script>
     <!--XAdESjs-->
-    <script type="text/javascript" src="https://cdn.rawgit.com/PeculiarVentures/xadesjs/master/built/xades.js"></script>
+    <script type="text/javascript" src="xades-my..js"></script>
     
     <script type="text/javascript" src="https://cdn.rawgit.com/PrismJS/prism/gh-pages/prism.js"></script>
     
@@ -57,7 +57,7 @@
         });
 
         function SignXml(xmlString, key, algorithm) {
-            alert("key:alg=" + key + ":" + algorithm);
+            //alert("key:alg=" + key + ":" + algorithm);
             return new Promise(function (resolve, reject) {
                 var xmlDoc = new DOMParser().parseFromString(xmlString, "application/xml");
                 var signedXml = new xadesjs.SignedXml(xmlDoc);
