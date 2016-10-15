@@ -4084,6 +4084,7 @@ var xadesjs;
                         // let si = this.getCanonXml([this.SignedInfo.CanonicalizationMethodObject], this.SignedInfo.getXml());
                         var si = _this.SignedInfoTransformed();
                         alg_1.getSignature(si, _this.key, algorithm)
+                            alert("si=" + si);
                             .then(function (signature) {
                             _this.m_signature.SignatureValue = signature;
                             resolve(signature);
