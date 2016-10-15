@@ -4055,7 +4055,7 @@ var xadesjs;
             return new Promise(function (resolve, reject) {
                 if (_this.key != null) {
                     var alg_1 = GetSignatureAlgorithm(_this.key.algorithm.hash ? _this.key.algorithm : algorithm);
-                    alert("alg_1=" + alg_1);
+                    alert("alg_1=" + JSON.stringify(alg_1, null, 2));
                     if (_this.m_signature.SignedInfo.SignatureMethod == null)
                         // required before hashing
                         _this.m_signature.SignedInfo.SignatureMethod = alg_1.xmlNamespace;
