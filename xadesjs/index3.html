@@ -57,6 +57,7 @@
         });
 
         function SignXml(xmlString, key, algorithm) {
+            alert("key:alg=" + key + ":" + algorithm);
             return new Promise(function (resolve, reject) {
                 var xmlDoc = new DOMParser().parseFromString(xmlString, "application/xml");
                 var signedXml = new xadesjs.SignedXml(xmlDoc);
