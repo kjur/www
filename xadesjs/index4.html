@@ -93,7 +93,7 @@ function SignXml(xmlString, key, algorithm) {
 }
         
 function btnVerify_onclick() {
-  var xmlString = document.getElementById("signedXML").innerText;
+  var xmlString = document.getElementById("signedXML").value;
         
   var signedDocument = new DOMParser().parseFromString(xmlString, "application/xml");
   var xmlSignature = signedDocument.getElementsByTagNameNS("http://www.w3.org/2000/09/xmldsig#", "Signature");
