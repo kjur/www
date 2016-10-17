@@ -121,7 +121,7 @@ function btnSign_onclick() {
     console.log("Successfully Signed");
                  
     var block = document.getElementById("signedXML");
-    block.textContent = signedDocument;
+    block.value = signedDocument;
     block.scrollTop = block.scrollHeight;
   })
   .catch(function (e) {
@@ -173,11 +173,11 @@ function btnPPrint_onclick() {
 
 function btnReset_onclick() {
   var oXml = document.getElementById("signedXML");
-  oXml.innerText = "<a></a>";
+  oXml.value = "<a></a>";
 }
 </script>
 <div style="left:2%;top:25%;position:relative;width:96%">
-  <textarea id="signedXML" rows="10" cols="200"></textarea>
+  <textarea id="signedXML" rows="10" cols="200">&lt;a&gt;&lt;/a&gt;</textarea>
   <button id="btnSign" onclick="btnSign_onclick()" class="button">Sign</button>
   <button id="btnVerify" onclick="btnVerify_onclick()" class="button">Verify</button>
   <button id="btnPPrint" onclick="btnPPrint_onclick()" class="button">Pretty Print</button>
