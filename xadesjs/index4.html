@@ -113,7 +113,7 @@ function btnVerify_onclick() {
 }
 
 function btnSign_onclick() {
-  var xmlString = document.getElementById("signedXML").innerText;
+  var xmlString = document.getElementById("signedXML").value;
              
   SignXml(xmlString, privateKey, { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" } })
   .then(function (signedDocument) {
@@ -164,10 +164,10 @@ function formatXml(xml) {
 function btnPPrint_onclick() {
   var oXml = document.getElementById("signedXML");
   //alert(oXml.innerText);
-  oXml.innerText = formatXml(oXml.innerText);
+  oXml.value = formatXml(oXml.value);
 
   var block = document.getElementById("signedXML");
-  block.textContent = signedDocument;
+  block.value = signedDocument;
   block.scrollTop = block.scrollHeight;
 }
 
