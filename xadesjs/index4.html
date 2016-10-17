@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>XAdESJS - A pure Javascript implementation of XMLDSIG and XAdES based on Web Crypto</title>
+</head>
+
+<body>
+<script type="text/javascript" >
+if (window.location.protocol != "https:")
+  window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+</script>
+<!--WebCrypto-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://peculiarventures.github.io/pv-webcrypto-tests/src/promise.js"></script>
+<script type="text/javascript" src="https://peculiarventures.github.io/pv-webcrypto-tests/src/asmcrypto.js"></script>
+<script type="text/javascript" src="https://peculiarventures.github.io/pv-webcrypto-tests/src/webcrypto-liner.min.js"></script>
+<script type="text/javascript" src="https://peculiarventures.github.io/pv-webcrypto-tests/src/elliptic.js"></script>
+<!--PKIjs-->
+<script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/ASN1.js/master/org/pkijs/common.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/ASN1.js/master/org/pkijs/asn1.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/PKI.js/master/org/pkijs/x509_schema.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/GlobalSign/PKI.js/master/org/pkijs/x509_simpl.js"></script>
+<!--XAdESjs-->
+<script type="text/javascript" src="xades-my.js"></script>
+
+<style>.button { background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; }</style>
+    
+<script type="text/javascript">
+// Generate RSA key pair
+var privateKey, publicKey;
+window.crypto.subtle.generateKey({
+  name: "RSASSA-PKCS1-v1_5",
+  modulusLength: 2048, //can be 1024, 2048, or 4096
+  publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+  hash: {name: "SHA-256"}, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
+},
+false, //whether the key is extractable (i.e. can be used in exportKey)
+["sign", "verify"] //can be any combination of "sign" and "verify"
+).then(function(keyPair){
+  // Push ganerated keys to global variable
+  privateKey = keyPair.privateKey;
+  publicKey = keyPair.publicKey;
+  console.log("Sucessfully generated key");
+}).catch(function (e) {
+  console.error(e);
+});
+
+function SignXml(xmlString, key, algorithm) {
+  //alert("key:alg=" + key + ":" + algorithm);
+  return new Promise(function (resolve, reject) {
+    var xmlDoc = new DOMParser().parseFromString(xmlString, "application/xml");
+    var signedXml = new xadesjs.SignedXml(xmlDoc);
+
+    // Add the key to the SignedXml document.
+    signedXml.SigningKey = key;
+
+    // Create a reference to be signed.
+    var reference = new xadesjs.Reference();
+    reference.Uri = "";
+
+    // Add an enveloped transformation to the reference.
+    reference.AddTransform(new xadesjs.XmlDsigEnvelopedSignatureTransform());
+
+    // Add the reference to the SignedXml object.
+    signedXml.AddReference(reference);
+
+    // Add KeyInfo
+    signedXml.KeyInfo = new xadesjs.KeyInfo();
+    var keyInfoClause = new xadesjs.RsaKeyValue();
+    signedXml.KeyInfo.AddClause(keyInfoClause);
+
+    // Set prefix for Signature namespace
+    signedXml.Prefix = "ds";
+
+    // Compute the signature.
+    signedXml.ComputeSignature(algorithm)
+    .then(function () {
+      return keyInfoClause.importKey(publicKey);
+    })
+    .then(function () {
+      // Append signature
+      var xmlDigitalSignature = signedXml.GetXml();
+      xmlDoc.documentElement.appendChild(xmlDigitalSignature);
+
+      // Serialize XML document
+      var signedDocument = new XMLSerializer().serializeToString(xmlDoc);
+
+      return Promise.resolve(signedDocument);
+    })
+    .then(resolve, reject);
+  })
+}
+        
+function btnVerify_onclick() {
+  var xmlString = document.getElementById("signedXML").innerText;
+        
+  var signedDocument = new DOMParser().parseFromString(xmlString, "application/xml");
+  var xmlSignature = signedDocument.getElementsByTagNameNS("http://www.w3.org/2000/09/xmldsig#", "Signature");
+
+  var signedXml = new xadesjs.SignedXml(signedDocument);
+  signedXml.LoadXml(xmlSignature[0]);
+  signedXml.CheckSignature()
+  .then(function (signedDocument) {
+    alert("Successfully Verified");
+    console.log("Sucessfully Verified");
+  })
+  .catch(function (e) {
+    alert("Invalid signature")
+    console.log("Invalid signature");
+    console.error(e);
+  });
+}
+
+function btnSign_onclick() {
+  var xmlString = document.getElementById("signedXML").innerText;
+             
+  SignXml(xmlString, privateKey, { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" } })
+  .then(function (signedDocument) {
+    alert("Successfully Signed");
+    console.log("Successfully Signed");
+                 
+    var block = document.getElementById("signedXML");
+    block.textContent = signedDocument;
+    block.scrollTop = block.scrollHeight;
+  })
+  .catch(function (e) {
+    alert("Error signing document: " + e);
+    console.log("Error signing document: " + e);
+  });
+}
+
+function formatXml(xml) {
+  var formatted = '';
+  var reg = /(>)(<)(\/*)/g;
+  xml = xml.replace(reg, '$1\r\n$2$3');
+  var pad = 0;
+  $.each(xml.split('\r\n'), function(index, node) {
+    var indent = 0;
+    if (node.match( /.+<\/\w[^>]*>$/ )) {
+      indent = 0;
+    } else if (node.match( /^<\/\w/ )) {
+      if (pad != 0) {
+        pad -= 1;
+      }
+    } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+      indent = 1;
+    } else {
+      indent = 0;
+    }
+
+    var padding = '';
+    for (var i = 0; i < pad; i++) {
+      padding += '  ';
+    }
+
+    formatted += padding + node + '\r\n';
+    pad += indent;
+  });
+
+  return formatted;
+}
+
+function btnPPrint_onclick() {
+  var oXml = document.getElementById("signedXML");
+  //alert(oXml.innerText);
+  oXml.innerText = formatXml(oXml.innerText);
+
+  var block = document.getElementById("signedXML");
+  block.textContent = signedDocument;
+  block.scrollTop = block.scrollHeight;
+}
+
+function btnReset_onclick() {
+  var oXml = document.getElementById("signedXML");
+  oXml.innerText = "<a></a>";
+}
+</script>
+<div style="left:2%;top:25%;position:relative;width:96%">
+  <textarea id="signedXML" rows="10" cols="200"></textarea>
+  <button id="btnSign" onclick="btnSign_onclick()" class="button">Sign</button>
+  <button id="btnVerify" onclick="btnVerify_onclick()" class="button">Verify</button>
+  <button id="btnPPrint" onclick="btnPPrint_onclick()" class="button">Pretty Print</button>
+  <button id="btnReset" onclick="btnReset_onclick()" class="button">Reset</button>
+</div>
+<div>
+00:48
+<a href="index.html">index.html</a> | 
+<a href="index2.html">index2.html</a> | 
+<a href="index2.html">index3.html</a> | 
+</div>
+</body>
+</html>
