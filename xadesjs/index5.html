@@ -65,7 +65,7 @@ window.crypto.subtle.importKey(
   "jwk",
   SAMPLE_PRIVATE_JWK,
     {name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"}},
-    false, ["sign"]
+    true, ["sign"]
 ).then(
   function(key) {
     privateKey = key;
@@ -79,7 +79,7 @@ window.crypto.subtle.importKey(
   "jwk",
   SAMPLE_PUBLIC_JWK,
     {name: "RSASSA-PKCS1-v1_5", hash: {name: "SHA-256"}},
-    false, ["verify"]
+    true, ["verify"]
 ).then(
   function(key) {
     publicKey = key;
