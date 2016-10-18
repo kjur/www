@@ -4080,10 +4080,11 @@ var xadesjs;
                         }
                     }
                     _this.DigestReferences()
-                        .then(function () {
+                    .then(function () {
                         // let si = this.getCanonXml([this.SignedInfo.CanonicalizationMethodObject], this.SignedInfo.getXml());
                         var si = _this.SignedInfoTransformed();
                         //alert("si=" + si);
+                        /*
 			alert(JSON.stringify(SAMPLE_PRIVATE_JWK, null, -2))
                         alg_1.getSignature(si, _this.key, algorithm)
                             .then(function (signature) {
@@ -4091,9 +4092,16 @@ var xadesjs;
                             _this.m_signature.SignatureValue = signature;
                             resolve(signature);
                         })
-                            .catch(reject);
-                    })
                         .catch(reject);
+                         */
+			var prvKeyObj = KEYUTIL.getKey(SAMPLE_PRIVATE_JWK);
+			var sig = new KJUR.crypto.Signature({alg: "SHA256withRSA"});
+			sig.init(prvKeyObj);
+			sig.updateString(si);
+			var hSigVal = sig.sign();
+                        _this.m_signature.SignatureValue = hextoArrayBuffer(hSigVal);
+                    })
+                    .catch(reject);
                 }
                 else
                     throw new xadesjs.XmlError(xadesjs.XE.CRYPTOGRAPHIC, "signing key is not specified");
