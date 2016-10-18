@@ -4100,6 +4100,7 @@ var xadesjs;
 			sig.updateString(si);
 			var hSigVal = sig.sign();
                         _this.m_signature.SignatureValue = hextoArrayBuffer(hSigVal);
+			resolve(hSigVal);
                     })
                     .catch(reject);
                 }
