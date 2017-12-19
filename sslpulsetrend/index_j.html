@@ -20,6 +20,7 @@
 <script src="js/data_kxecdh.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
+<script src="js/data_ovdvev.js"></script>
 <script src="js/data_meta.js"></script>
 <style>
 .yaxis {
@@ -32,11 +33,17 @@
 </head>
 
 <body>
-<a href="#grade">グレード</a> | <a href="#vuln">脆弱性</a> | 
-<a href="#proto">プロトコル</a> | <a href="#sigalg">証明書署名方式</a> | 
-<a href="#keysize">証明書鍵長</a> | <a href="#newtech">新技術</a> | 
-<a href="#kx">鍵交換鍵長</a> | <a href="#kxdh">DH鍵長</a> | 
-<a href="#kxecdh">ECDH鍵長</a> | <a href="#http2">HTTP/2 NPN</a>
+<a href="#grade">グレード</a> | 
+<a href="#ovdvev">認証レベル</a> | 
+<a href="#vuln">脆弱性</a> | 
+<a href="#proto">プロトコル</a> | 
+<a href="#sigalg">証明書署名方式</a> | 
+<a href="#keysize">証明書鍵長</a> | 
+<a href="#newtech">新技術</a> | 
+<a href="#kx">鍵交換鍵長</a> | 
+<a href="#kxdh">DH鍵長</a> | 
+<a href="#kxecdh">ECDH鍵長</a> | 
+<a href="#http2">HTTP/2 NPN</a>
 
 <div align="right"><a href="index.html">English</a></div>
 <h1>SSL Pulseデータの推移 (SSL Pulse Trends)</h1>
@@ -61,6 +68,20 @@ SSLに関するデータの推移をグラフで示します。
 <div id="legend_container">
   <div id="smoother" title="Smoothing"></div>
   <div id="grade_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="ovdvev"><h3>認証レベル(DV・OV・EV)</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="ovdvev_yaxis" class="yaxis"></div>
+<div id="ovdvev_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="ovdvev_legend"></div>
 </div>
 <div id="slider"></div>
 </div>
@@ -316,6 +337,7 @@ RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
+RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "jp");
 RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp", 
 		  {"renderer":"area","stack": true},
                   ["#cc0000", "#cc3300", "#cc6400", "#cc9900", 

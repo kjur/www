@@ -20,6 +20,7 @@
 <script src="js/data_kxecdh.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
+<script src="js/data_ovdvev.js"></script>
 <script src="js/data_meta.js"></script>
 <style>
 .yaxis {
@@ -32,11 +33,17 @@
 </head>
 
 <body>
-<a href="#grade">grade</a> | <a href="#vuln">vulns</a> | 
-<a href="#proto">protocol</a> | <a href="#sigalg">signature algorithm</a> | 
-<a href="#keysize">certificate key size</a> | <a href="#newtech">new technology</a> | 
-<a href="#kx">key exchange size</a> | <a href="#kxdh">DH key exchange size</a> | 
-<a href="#kxecdh">ECDH key exchange size</a> | <a href="#http2">HTTP/2 NPN</a>
+<a href="#grade">grade</a> | 
+<a href="#ovdvev">validation</a> | 
+<a href="#vuln">vulns</a> | 
+<a href="#proto">protocol</a> | 
+<a href="#sigalg">signature algorithm</a> | 
+<a href="#keysize">certificate key size</a> | 
+<a href="#newtech">new technology</a> | 
+<a href="#kx">key exchange size</a> | 
+<a href="#kxdh">DH key exchange size</a> | 
+<a href="#kxecdh">ECDH key exchange size</a> | 
+<a href="#http2">HTTP/2 NPN</a>
 
 <div align="right"><a href="index_j.html">日本語</a></div>
 <h1>SSL Pulse Trends</h1>
@@ -58,6 +65,20 @@ SSL Pulse data period: <span id="datebegin"></span> - <span id="dateend"></span>
 <div id="legend_container">
   <div id="smoother" title="Smoothing"></div>
   <div id="grade_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="ovdvev"><h3>Validation Level</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="ovdvev_yaxis" class="yaxis"></div>
+<div id="ovdvev_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="ovdvev_legend"></div>
 </div>
 <div id="slider"></div>
 </div>
@@ -307,6 +328,7 @@ RickshawUtilGraph("kx", lineTempl, seriesKx, "en");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "en");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "en");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "en");
+RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "en");
 RickshawUtilGraph("grade", lineTempl, seriesGrade, "en", 
 		  {"renderer":"area","stack": true},
                   ["#cc0000", "#cc3300", "#cc6400", "#cc9900", 
