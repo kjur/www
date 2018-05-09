@@ -12,6 +12,7 @@
 <script src="js/rickshaw.min.js"></script>
 <script src="js/data_crtsigalg.js"></script>
 <script src="js/data_proto.js"></script>
+<script src="js/data_protobest.js"></script>
 <script src="js/data_vuln.js"></script>
 <script src="js/data_keysize.js"></script>
 <script src="js/data_newtech.js"></script>
@@ -37,6 +38,7 @@
 <a href="#ovdvev">validation</a> | 
 <a href="#vuln">vulns</a> | 
 <a href="#proto">protocol</a> | 
+<a href="#protobest">best protocol</a> | 
 <a href="#sigalg">signature algorithm</a> | 
 <a href="#keysize">certificate key size</a> | 
 <a href="#newtech">new technology</a> | 
@@ -107,6 +109,20 @@ SSL Pulse data period: <span id="datebegin"></span> - <span id="dateend"></span>
 <div id="legend_container">
   <div id="smoother" title="Smoothing"></div>
   <div id="proto_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="protobest"><h3>Best SSL/TLS Protocols</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="protobest_yaxis" class="yaxis"></div>
+<div id="protobest_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="protobest_legend"></div>
 </div>
 <div id="slider"></div>
 </div>
@@ -321,6 +337,7 @@ var lineTempl = {
 
 RickshawUtilGraph("crtsig", lineTempl, seriesCertSigAlg, "en");
 RickshawUtilGraph("proto", lineTempl, seriesProto, "en");
+RickshawUtilGraph("protobest", lineTempl, seriesProtoBest, "en");
 RickshawUtilGraph("vuln", lineTempl, seriesVuln, "en");
 RickshawUtilGraph("keysize", lineTempl, seriesKeysize, "en");
 RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "en");

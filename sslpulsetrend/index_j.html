@@ -12,6 +12,7 @@
 <script src="js/rickshaw.min.js"></script>
 <script src="js/data_crtsigalg.js"></script>
 <script src="js/data_proto.js"></script>
+<script src="js/data_protobest.js"></script>
 <script src="js/data_vuln.js"></script>
 <script src="js/data_keysize.js"></script>
 <script src="js/data_newtech.js"></script>
@@ -37,6 +38,7 @@
 <a href="#ovdvev">認証レベル</a> | 
 <a href="#vuln">脆弱性</a> | 
 <a href="#proto">プロトコル</a> | 
+<a href="#protobest">最強プロトコル</a> | 
 <a href="#sigalg">証明書署名方式</a> | 
 <a href="#keysize">証明書鍵長</a> | 
 <a href="#newtech">新技術</a> | 
@@ -112,6 +114,21 @@ POODLE攻撃が公表されて以降、SSLv3の利用は急激に下がりまし
 <div id="legend_container">
   <div id="smoother" title="Smoothing"></div>
   <div id="proto_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="protobest"><h3>最も強いSSL/TLSプロトコルの使用比率推移</h3></a>
+サーバーでサポートする最強のプロトコルの推移です。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="protobest_yaxis" class="yaxis"></div>
+<div id="protobest_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="protobest_legend"></div>
 </div>
 <div id="slider"></div>
 </div>
@@ -330,6 +347,7 @@ var lineTempl = {
 
 RickshawUtilGraph("crtsig", lineTempl, seriesCertSigAlg, "jp");
 RickshawUtilGraph("proto", lineTempl, seriesProto, "jp");
+RickshawUtilGraph("protobest", lineTempl, seriesProtoBest, "jp");
 RickshawUtilGraph("vuln", lineTempl, seriesVuln, "jp");
 RickshawUtilGraph("keysize", lineTempl, seriesKeysize, "jp");
 RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "jp");
