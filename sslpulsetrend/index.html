@@ -19,6 +19,7 @@
 <script src="js/data_kx.js"></script>
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
+<script src="js/data_alpn.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
 <script src="js/data_ovdvev.js"></script>
@@ -45,7 +46,9 @@
 <a href="#kx">key exchange size</a> | 
 <a href="#kxdh">DH key exchange size</a> | 
 <a href="#kxecdh">ECDH key exchange size</a> | 
-<a href="#http2">HTTP/2 NPN</a>
+<a href="#alpn">HTTP/2 ALPN</a> | 
+<a href="#http2">HTTP/2 NPN</a> | 
+<a href="#changes">changes</a> | 
 
 <div align="right"><a href="index_j.html">日本語</a></div>
 <h1>SSL Pulse Trends</h1>
@@ -212,6 +215,20 @@ SSL Pulse data period: <span id="datebegin"></span> - <span id="dateend"></span>
 </div>
 <br clear="all"/>
 
+<a name="alpn"><h3>HTTP/2 support protocol in ALPN</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="alpn_yaxis" class="yaxis"></div>
+<div id="alpn_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="alpn_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
 <a name="http2"><h3>HTTP/2 support protocol in NPN</h3></a>
 
 <br clear="all"/>
@@ -344,6 +361,7 @@ RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "en");
 RickshawUtilGraph("kx", lineTempl, seriesKx, "en");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "en");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "en");
+RickshawUtilGraph("alpn", lineTempl, seriesALPN, "en");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "en");
 RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "en");
 RickshawUtilGraph("grade", lineTempl, seriesGrade, "en", 
@@ -354,7 +372,16 @@ RickshawUtilGraph("grade", lineTempl, seriesGrade, "en",
 </script>
 
 <br clear="all"/>
+<a name="changes"><h3>CHANGES</h3></a>
+<ul>
+<li>May 2019 - 
+<a href="#alpn">ALPN TLS extension chart</a> is added.
+Zombie Poodle and Golden Doodle vulnerability affection charts are
+added in <a href="#vuln">VULNERABILITIES chart</a>.
+</li>
+</ul>
 
+<br clear="all"/>
 <h3>ACKNOWLEDGEMENT</h3>
 <p>
 Special thanks for <a href="https://blog.ivanristic.com/">Ivan Risti&#263;</a> and

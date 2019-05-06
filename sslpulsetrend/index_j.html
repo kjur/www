@@ -19,6 +19,7 @@
 <script src="js/data_kx.js"></script>
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
+<script src="js/data_alpn.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
 <script src="js/data_ovdvev.js"></script>
@@ -45,7 +46,9 @@
 <a href="#kx">鍵交換鍵長</a> | 
 <a href="#kxdh">DH鍵長</a> | 
 <a href="#kxecdh">ECDH鍵長</a> | 
-<a href="#http2">HTTP/2 NPN</a>
+<a href="#alpn">HTTP/2 ALPN</a> | 
+<a href="#http2">HTTP/2 NPN</a> | 
+<a href="#changes">更新履歴</a> | 
 
 <div align="right"><a href="index.html">English</a></div>
 <h1>SSL Pulseデータの推移 (SSL Pulse Trends)</h1>
@@ -223,8 +226,26 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
-<a name="http2"><h3>NPNにおけるHTTP/2プロトコルのサポート率</h3></a>
-NPN(Next Protocol Negotiation)においてサーバーが提示するプロトコルのうち、HTTP/2やそのドラフトのサポートの比率の推移は以下の通りです。
+<a name="alpn"><h3>HTTP/2 ALPNにおけるプロトコルのサポート率</h3></a>
+HTTP/2のhttpsの場合のプロトコルネゴシエーションで、
+サーバー側がサポートする
+ALPN(Application-Layer Protocol Negotiation)と共に示される、
+使用可能なプロトコルのサポート比率の推移は以下のようになる。
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="alpn_yaxis" class="yaxis"></div>
+<div id="alpn_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="alpn_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
+<a name="http2"><h3>(参考)NPNにおけるHTTP/2プロトコルのサポート率</h3></a>
+NPN(Next Protocol Negotiation)においてサーバーが提示するプロトコルのうち、HTTP/2やそのドラフトのサポートの比率の推移は以下の通りです。<a href="https://www.imperialviolet.org/2013/03/20/alpn.html" target="_blank">NPNはALPNに置き換えられたため当面、参考として掲載しておきます。</a>
 
 <br clear="all"/>
 <div id="chart_container">
@@ -356,6 +377,7 @@ RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "jp");
 RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
+RickshawUtilGraph("alpn", lineTempl, seriesALPN, "jp");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
 RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "jp");
 RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp", 
@@ -364,6 +386,19 @@ RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp",
                    "#cccc00", "#4ced77", "#18ba5f", "#139e70"]
 );
 </script>
+
+<br clear="all"/>
+<a name="changes"><h3>更新履歴</h3></a>
+データの更新以外の情報の追加、トレンドの変化コメントなどは以下の通りです。
+<ul>
+<li>2019年5月 - HTTP/2のプロトコル名を示すTLS拡張は既に長いことNPNではなく
+<a href="https://www.imperialviolet.org/2013/03/20/alpn.html">ALPNに置き換えられていますが</a>、
+ようやく<a href="#alpn">ALPNの利用状況のグラフ</a>を追加しました。
+また、2019年3月のBlack Hat 2019 Asiaで発表された、Zombie Poodle脆弱性、Golden Doodle脆弱性の
+影響も<a href="#vuln">脆弱性のグラフ</a>に追加しました。どちらも影響をうけるサイトは非常に
+少ないことがわかります。
+</li>
+</ul>
 
 <br clear="all"/>
 <h3>参考情報</h3>
