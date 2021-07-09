@@ -25,4 +25,4 @@ You can donate cryptocurrency to 'SSL Pulse Trends' using the following addresse
 - Litecoin(LTC): [LPf3VDJVamwPcNJNjjVtrUQuJQ17ZyWzeU](https://en.cryptobadges.io/donate/LPf3VDJVamwPcNJNjjVtrUQuJQ17ZyWzeU)
 - Bitcoin Cash(BCH): bitcoincash:pq3hy08pc9vm57q6ddgsc06cqdffmfzwwqxd9yejyf
 
-### [SSL Pulse Trends](https://github.com/BigGuy573/www/.SSL-Pulse-Trends.java)
+### [SSL Pulse Trends](https://kjur.github.io/www/sslpulsetrend/)
