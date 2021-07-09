@@ -1,0 +1,109 @@
+(2a04:4e42:200:0:0:0:0:81)
+Assessed on:  Fri, 09 Jul 2021 19:23:39 UTC | Clear cacheScan Another »
+Assessment failed: Unable to connect to the server
+Known Problems
+
+There are some errors that we cannot fix properly in the current version. They will be addressed in the next generation version, which is currently being developed.
+
+No secure protocols supported - if you get this message, but you know that the site supports SSL, wait until the cache expires on its own, then try again, making sure the hostname you enter uses the "www" prefix (e.g., "www.ssllabs.com", not just "ssllabs.com").
+no more data allowed for version 1 certificate - the certificate is invalid; it is declared as version 1, but uses extensions, which were introduced in version 3. Browsers might ignore this problem, but our parser is strict and refuses to proceed. We'll try to find a different parser to avoid this problem.
+Failed to obtain certificate and Internal Error - errors of this type will often be reported for servers that use connection rate limits or block connections in response to unusual traffic. Problems of this type are very difficult to diagnose. If you have access to the server being tested, before reporting a problem to us, please check that there is no rate limiting or IDS in place.
+NetScaler issues - some NetScaler versions appear to reject SSL handshakes that do not include certain suites or handshakes that use a few suites. If the test is failing and there is a NetScaler load balancer in place, that's most likely the reason.
+Unexpected failure - our tests are designed to fail when unusual results are observed. This usually happens when there are multiple TLS servers behind the same IP address. In such cases we can't provide accurate results, which is why we fail.
+Common Error Messages
+
+Connect timed out - server did not respond to our connection request, sometimes before we are dynamically blocked when our tests are detected
+No route to host - unable to reach the server
+Unable to connect to server - failed to connect to the server, it usually happens due to firewall restrictions
+Connection reset - we got disconnected from the server
+Unrecognized SSL message, plaintext connection? - the server responded with plain-text HTTP on HTTPS port
+Received fatal alert: handshake_failure - this is either a faulty SSL server or some other server listening on port 443; if the SSL version of the web site works in your browser, please report this issue to us
+Failed to communicate with the secure server - No secure protocol supported. Possibly this server only supports a draft version of TLS 1.3
+Certificate #1: RSA 2048 bits (SHA256withRSA)
+
+Server Key and Certificate #1
+Subject	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+Common names	www.bbc.com
+Alternative names	www.bbc.com fig.bbc.co.uk bbc.co.uk www.bbc.co.uk bbc.com
+Serial Number	71ac5771debc0fe2ada4e753
+Valid from	Wed, 22 Jul 2020 06:16:12 UTC
+Valid until	Sun, 05 Sep 2021 09:36:04 UTC (expires in 1 month and 26 days)
+Key	RSA 2048 bits (e 65537)
+Weak key (Debian)	No
+Issuer	GlobalSign RSA OV SSL CA 2018
+AIA: http://secure.globalsign.com/cacert/gsrsaovsslca2018.crt
+Signature algorithm	SHA256withRSA
+Extended Validation	No
+Revocation information	CRL, OCSP
+CRL: http://crl.globalsign.com/gsrsaovsslca2018.crl
+OCSP: http://ocsp.globalsign.com/gsrsaovsslca2018
+Revocation status	Good (not revoked)
+DNS CAA	Yes
+policy host: bbc.co.uk
+issue: amazon.com flags:0
+issue: digicert.com flags:0
+issue: globalsign.com flags:0
+issuewild: globalsign.com flags:0
+iodef: mailto:security@bbc.co.uk flags:0
+Trusted	Yes
+Mozilla  Apple  Android  Java  Windows 
+
+
+Additional Certificates (if supplied)
+Certificates provided	3 (3817 bytes)
+Chain issues	None
+#2
+Subject	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+Valid until	Tue, 21 Nov 2028 00:00:00 UTC (expires in 7 years and 4 months)
+Key	RSA 2048 bits (e 65537)
+Issuer	GlobalSign
+Signature algorithm	SHA256withRSA
+#3
+Subject	GlobalSign
+Fingerprint SHA256: 445eec78bc61215044a0379656aa2d5db5e42f76cb70b8d14c2077aa943d4ebb
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+Valid until	Fri, 28 Jan 2028 12:00:00 UTC (expires in 6 years and 6 months)
+Key	RSA 2048 bits (e 65537)
+Issuer	GlobalSign Root CA
+Signature algorithm	SHA256withRSA
+
+
+
+Hide Certification PathsCertification Paths
+MozillaAppleAndroidJavaWindows
+Path #1: Trusted
+1	Sent by server	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+RSA 2048 bits (e 65537) / SHA256withRSA
+2	Sent by server	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+RSA 2048 bits (e 65537) / SHA256withRSA
+3	In trust store	GlobalSign   Self-signed
+Fingerprint SHA256: cbb522d7b7f127ad6a0113865bdf1cd4102e7d0759af635a7cf4720dc963c53b
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+RSA 2048 bits (e 65537) / SHA256withRSA
+Path #2: Trusted
+1	Sent by server	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+RSA 2048 bits (e 65537) / SHA256withRSA
+2	Sent by server	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+RSA 2048 bits (e 65537) / SHA256withRSA
+3	Sent by server	GlobalSign
+Fingerprint SHA256: 445eec78bc61215044a0379656aa2d5db5e42f76cb70b8d14c2077aa943d4ebb
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+RSA 2048 bits (e 65537) / SHA256withRSA
+4	In trust store	GlobalSign Root CA   Self-signed
+Fingerprint SHA256: ebd41040e4bb3ec742c9e381d31ef2a41a48b6685c96e7cef3c1df6cd4331c99
+Pin SHA256: K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q=
+RSA 2048 bits (e 65537) / SHA1withRSA
+Weak or insecure signature, but no impact on root certificate
+SSL Report v2.1.8
