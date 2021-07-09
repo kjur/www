@@ -1,0 +1,276 @@
+###(https.io.gov)
+(2a04:4e42:0:0:0:0:0:81)
+Assessed on:  Fri, 09 Jul 2021 19:23:39 UTC | Clear cacheScan Another »
+Summary
+Overall Rating
+B
+020406080100
+Certificate 
+Protocol Support 
+Key Exchange 
+Cipher Strength 
+Visit our documentation page for more information, configuration guides, and books. Known issues are documented here.
+This server supports TLS 1.0 and TLS 1.1. Grade capped to B. MORE INFO »
+This server supports TLS 1.3.
+DNS Certification Authority Authorization (CAA) Policy found for this domain.  MORE INFO »
+Certificate #1: RSA 2048 bits (SHA256withRSA)
+
+Server Key and Certificate #1
+Subject	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+Common names	www.bbc.com
+Alternative names	www.bbc.com fig.bbc.co.uk bbc.co.uk www.bbc.co.uk bbc.com
+Serial Number	71ac5771debc0fe2ada4e753
+Valid from	Wed, 22 Jul 2020 06:16:12 UTC
+Valid until	Sun, 05 Sep 2021 09:36:04 UTC (expires in 1 month and 26 days)
+Key	RSA 2048 bits (e 65537)
+Weak key (Debian)	No
+Issuer	GlobalSign RSA OV SSL CA 2018
+AIA: http://secure.globalsign.com/cacert/gsrsaovsslca2018.crt
+Signature algorithm	SHA256withRSA
+Extended Validation	No
+Certificate Transparency	Yes (certificate)
+OCSP Must Staple	No
+Revocation information	CRL, OCSP
+CRL: http://crl.globalsign.com/gsrsaovsslca2018.crl
+OCSP: http://ocsp.globalsign.com/gsrsaovsslca2018
+Revocation status	Good (not revoked)
+DNS CAA	Yes
+policy host: bbc.co.uk
+issue: amazon.com flags:0
+issue: digicert.com flags:0
+issue: globalsign.com flags:0
+issuewild: globalsign.com flags:0
+iodef: mailto:security@bbc.co.uk flags:0
+Trusted	Yes
+Mozilla  Apple  Android  Java  Windows 
+
+
+Additional Certificates (if supplied)
+Certificates provided	3 (3817 bytes)
+Chain issues	None
+#2
+Subject	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+Valid until	Tue, 21 Nov 2028 00:00:00 UTC (expires in 7 years and 4 months)
+Key	RSA 2048 bits (e 65537)
+Issuer	GlobalSign
+Signature algorithm	SHA256withRSA
+#3
+Subject	GlobalSign
+Fingerprint SHA256: 445eec78bc61215044a0379656aa2d5db5e42f76cb70b8d14c2077aa943d4ebb
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+Valid until	Fri, 28 Jan 2028 12:00:00 UTC (expires in 6 years and 6 months)
+Key	RSA 2048 bits (e 65537)
+Issuer	GlobalSign Root CA
+Signature algorithm	SHA256withRSA
+
+
+
+Hide Certification PathsCertification Paths
+MozillaAppleAndroidJavaWindows
+Path #1: Trusted
+1	Sent by server	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+RSA 2048 bits (e 65537) / SHA256withRSA
+2	Sent by server	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+RSA 2048 bits (e 65537) / SHA256withRSA
+3	In trust store	GlobalSign   Self-signed
+Fingerprint SHA256: cbb522d7b7f127ad6a0113865bdf1cd4102e7d0759af635a7cf4720dc963c53b
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+RSA 2048 bits (e 65537) / SHA256withRSA
+Path #2: Trusted
+1	Sent by server	www.bbc.com
+Fingerprint SHA256: 422cdb6cd72c339b2b5b92600b87e3178499004cbfdeebf03d9a6b04ac9daaea
+Pin SHA256: KtHg/FC1lpYk7NLM/wmSwFPjXW0Mc9Zx9Pkbo4gYAvQ=
+RSA 2048 bits (e 65537) / SHA256withRSA
+2	Sent by server	GlobalSign RSA OV SSL CA 2018
+Fingerprint SHA256: b676ffa3179e8812093a1b5eafee876ae7a6aaf231078dad1bfb21cd2893764a
+Pin SHA256: hETpgVvaLC0bvcGG3t0cuqiHvr4XyP2MTwCiqhgRWwU=
+RSA 2048 bits (e 65537) / SHA256withRSA
+3	Sent by server	GlobalSign
+Fingerprint SHA256: 445eec78bc61215044a0379656aa2d5db5e42f76cb70b8d14c2077aa943d4ebb
+Pin SHA256: cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A=
+RSA 2048 bits (e 65537) / SHA256withRSA
+4	In trust store	GlobalSign Root CA   Self-signed
+Fingerprint SHA256: ebd41040e4bb3ec742c9e381d31ef2a41a48b6685c96e7cef3c1df6cd4331c99
+Pin SHA256: K87oWBWM9UZfyddvDfoxL+8lpNyoUB2ptGtn0fv6G2Q=
+RSA 2048 bits (e 65537) / SHA1withRSA
+Weak or insecure signature, but no impact on root certificate
+Configuration
+
+Protocols
+TLS 1.3	Yes
+TLS 1.2	Yes
+TLS 1.1	Yes
+TLS 1.0	Yes
+SSL 3	No
+SSL 2	No
+
+
+Cipher Suites
+# TLS 1.3 (server has no preference)
+TLS_AES_128_GCM_SHA256 (0x1301)   ECDH x25519 (eq. 3072 bits RSA)   FS	128
+TLS_AES_256_GCM_SHA384 (0x1302)   ECDH x25519 (eq. 3072 bits RSA)   FS	256
+TLS_CHACHA20_POLY1305_SHA256 (0x1303)   ECDH x25519 (eq. 3072 bits RSA)   FS	256
+# TLS 1.2 (suites in server-preferred order)
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (0xc02f)   ECDH x25519 (eq. 3072 bits RSA)   FS	128
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (0xc030)   ECDH x25519 (eq. 3072 bits RSA)   FS	256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 (0xc027)   ECDH x25519 (eq. 3072 bits RSA)   FS   WEAK	128
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 (0xc028)   ECDH x25519 (eq. 3072 bits RSA)   FS   WEAK	256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xc013)   ECDH x25519 (eq. 3072 bits RSA)   FS   WEAK	128
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xc014)   ECDH x25519 (eq. 3072 bits RSA)   FS   WEAK	256
+TLS_RSA_WITH_AES_128_GCM_SHA256 (0x9c)   WEAK	128
+TLS_RSA_WITH_AES_128_CBC_SHA (0x2f)   WEAK	128
+TLS_RSA_WITH_AES_256_CBC_SHA (0x35)   WEAK	256
+TLS_RSA_WITH_3DES_EDE_CBC_SHA (0xa)   WEAK	112
+# TLS 1.1 (suites in server-preferred order)
+# TLS 1.0 (suites in server-preferred order)
+
+
+
+Handshake Simulation
+Android 2.3.7   No SNI 2	Server sent fatal alert: decode_error
+Android 4.0.4	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Android 4.1.1	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Android 4.2.2	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Android 4.3	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Android 4.4.2	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Android 5.0.0	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Android 6.0	RSA 2048 (SHA256)  	TLS 1.2 > http/1.1  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Android 7.0	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+Android 8.0	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+Android 8.1	-  	TLS 1.3	TLS_CHACHA20_POLY1305_SHA256   ECDH x25519  FS
+Android 9.0	-  	TLS 1.3	TLS_CHACHA20_POLY1305_SHA256   ECDH x25519  FS
+Baidu Jan 2015	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+BingPreview Jan 2015	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Chrome 49 / XP SP3	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Chrome 69 / Win 7  R	Protocol or cipher suite mismatch
+0x7f1c  |  TLS_AES_128_GCM_SHA256
+Chrome 70 / Win 10	-  	TLS 1.3	TLS_AES_128_GCM_SHA256   ECDH x25519  FS
+Chrome 80 / Win 10  R	-  	TLS 1.3	TLS_AES_128_GCM_SHA256   ECDH x25519  FS
+Firefox 31.3.0 ESR / Win 7	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Firefox 47 / Win 7  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Firefox 49 / XP SP3	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Firefox 62 / Win 7  R	Protocol or cipher suite mismatch
+0x7f1c  |  TLS_AES_128_GCM_SHA256
+Firefox 73 / Win 10  R	-  	TLS 1.3	TLS_AES_128_GCM_SHA256   ECDH x25519  FS
+Googlebot Feb 2018	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+IE 7 / Vista	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+IE 8 / XP   No FS 1   No SNI 2	RSA 2048 (SHA256)  	TLS 1.0	TLS_RSA_WITH_3DES_EDE_CBC_SHA
+IE 8-10 / Win 7  R	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+IE 11 / Win 7  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+IE 11 / Win 8.1  R	RSA 2048 (SHA256)  	TLS 1.2 > http/1.1  	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+IE 10 / Win Phone 8.0	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+IE 11 / Win Phone 8.1  R	RSA 2048 (SHA256)  	TLS 1.2 > http/1.1  	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+IE 11 / Win Phone 8.1 Update  R	RSA 2048 (SHA256)  	TLS 1.2 > http/1.1  	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+IE 11 / Win 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Edge 15 / Win 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+Edge 16 / Win 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+Edge 18 / Win 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+Edge 13 / Win Phone 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Java 6u45   No SNI 2	Server closed connection
+Java 7u25	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Java 8u161	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Java 11.0.3	-  	TLS 1.3	TLS_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Java 12.0.1	-  	TLS 1.3	TLS_AES_128_GCM_SHA256   ECDH secp256r1  FS
+OpenSSL 0.9.8y	RSA 2048 (SHA256)  	TLS 1.0	TLS_RSA_WITH_AES_128_CBC_SHA  No FS
+OpenSSL 1.0.1l  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+OpenSSL 1.0.2s  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+OpenSSL 1.1.0k  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH x25519  FS
+OpenSSL 1.1.1c  R	-  	TLS 1.3	TLS_AES_256_GCM_SHA384   ECDH x25519  FS
+Safari 5.1.9 / OS X 10.6.8	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Safari 6 / iOS 6.0.1	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+Safari 6.0.4 / OS X 10.8.4  R	RSA 2048 (SHA256)  	TLS 1.0	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   ECDH secp256r1  FS
+Safari 7 / iOS 7.1  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+Safari 7 / OS X 10.9  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+Safari 8 / iOS 8.4  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+Safari 8 / OS X 10.10  R	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   ECDH secp256r1  FS
+Safari 9 / iOS 9  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Safari 9 / OS X 10.11  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Safari 10 / iOS 10  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Safari 10 / OS X 10.12  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Safari 12.1.2 / MacOS 10.14.6 Beta  R	-  	TLS 1.3	TLS_CHACHA20_POLY1305_SHA256   ECDH x25519  FS
+Safari 12.1.1 / iOS 12.3.1  R	-  	TLS 1.3	TLS_CHACHA20_POLY1305_SHA256   ECDH x25519  FS
+Apple ATS 9 / iOS 9  R	RSA 2048 (SHA256)  	TLS 1.2 > h2  	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+Yahoo Slurp Jan 2015	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+YandexBot Jan 2015	RSA 2048 (SHA256)  	TLS 1.2	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   ECDH secp256r1  FS
+# Not simulated clients (Protocol mismatch)
+IE 6 / XP   No FS 1   No SNI 2	Protocol mismatch (not simulated)
+(1) Clients that do not support Forward Secrecy (FS) are excluded when determining support for it.
+(2) No support for virtual SSL hosting (SNI). Connects to the default site if the server uses SNI.
+(3) Only first connection attempt simulated. Browsers sometimes retry with a lower protocol version.
+(R) Denotes a reference browser or client, with which we expect better effective security.
+(All) We use defaults, but some platforms do not use their best protocols and features (e.g., Java 6 & 7, older IE).
+(All) Certificate trust is not checked in handshake simulation, we only perform TLS handshake.
+
+
+
+Protocol Details
+DROWN	No, server keys and hostname not seen elsewhere with SSLv2
+(1) For a better understanding of this test, please read this longer explanation
+(2) Key usage data kindly provided by the Censys network search engine; original DROWN website here
+(3) Censys data is only indicative of possible key and certificate reuse; possibly out-of-date and not complete
+Secure Renegotiation	Supported
+Secure Client-Initiated Renegotiation	No
+Insecure Client-Initiated Renegotiation	No
+BEAST attack	Not mitigated server-side (more info)   TLS 1.0: 0xc013
+POODLE (SSLv3)	No, SSL 3 not supported (more info)
+POODLE (TLS)	No (more info)
+Zombie POODLE	No (more info)   TLS 1.2 : 0xc027
+GOLDENDOODLE	No (more info)   TLS 1.2 : 0xc027
+OpenSSL 0-Length	No (more info)   TLS 1.2 : 0xc027
+Sleeping POODLE	No (more info)   TLS 1.2 : 0xc027
+Downgrade attack prevention	Yes, TLS_FALLBACK_SCSV supported (more info)
+SSL/TLS compression	No
+RC4	No
+Heartbeat (extension)	No
+Heartbleed (vulnerability)	No (more info)
+Ticketbleed (vulnerability)	No (more info)
+OpenSSL CCS vuln. (CVE-2014-0224)	No (more info)
+OpenSSL Padding Oracle vuln.
+(CVE-2016-2107)	No (more info)
+ROBOT (vulnerability)	No (more info)
+Forward Secrecy	With modern browsers (more info)
+ALPN	Yes   h2 http/1.1
+NPN	No
+Session resumption (caching)	Yes
+Session resumption (tickets)	Yes
+OCSP stapling	Yes
+Strict Transport Security (HSTS)	Yes   TOO SHORT (less than 180 days)
+max-age= 2592000
+HSTS Preloading	Not in: Chrome  Edge  Firefox  IE 
+Public Key Pinning (HPKP)	No (more info)
+Public Key Pinning Report-Only	No
+Public Key Pinning (Static)	No (more info)
+Long handshake intolerance	No
+TLS extension intolerance	No
+TLS version intolerance	No
+Incorrect SNI alerts	No
+Uses common DH primes	No, DHE suites not supported
+DH public server param (Ys) reuse	No, DHE suites not supported
+ECDH public server param reuse	No
+Supported Named Groups	x25519, secp256r1, x448, secp521r1, secp384r1 (server preferred order)
+SSL 2 handshake compatibility	No
+0-RTT enabled	No
+
+
+HTTP Requests
+1 https://bbc.co.uk/  (HTTP/1.1 301 Moved Permanently)
+
+
+
+Miscellaneous
+Test date	Fri, 09 Jul 2021 19:14:29 UTC
+Test duration	341.974 seconds
+HTTP status code	301
+HTTP forwarding	https://www.bbc.co.uk
+HTTP server signature	Varnish
+Server hostname	-
+
+SSL Report v2.1.8
