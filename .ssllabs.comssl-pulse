@@ -1,0 +1,319 @@
+SSL Pulse
+SSL Pulse is a continuous and global dashboard for monitoring the quality of SSL / TLS support over time across 150,000 SSL- and TLS-enabled websites, based on Alexa’s list of the most popular sites in the world.
+Monthly Scan: June 18, 2021
+
+Previous
+
+Next
+SSL Security Summary
+45.4%
+secure sites
+Total sites surveyed
+136,854
+Inadequate security
+74,720
+Secure sites
+62,134
+- 0.0 %
+- 1.7 %
++ 1.7 %
+A+
+A
+A-
+SSL Labs Grade Distribution
+A
+B
+C
+D
+F
+0
+10%
+20%
+30%
+40%
+50%
+60%
+Certificate Chain
+1.7%
+Sites with incompletecertificate chain
+2,267
++ 0.0 %
+Strict Transport Security
+39,682Sites that support HTTP
+Strict Transport Security
+29.0 %of sites surveyed
++ 730since previous month
+CAA
+12,055Sites that support
+Certification Authority Authorization (RFC 6844)
+8.8 %of sites surveyed
++ 170since previous month
+Cipher Strength
+0.7%
+Sites that support weakor insecure cipher suites
+974
++ 0.0 %
+Protocol Support
+SSL v2.0
+SSL v3.0
+TLS v1.0
+TLS v1.1
+TLS v1.2
+TLS v1.3
+0
+20%
+40%
+60%
+80%
+100%
+Key Exchange Strength
+0
+512
+768
+1024
+2048
+3072
+0
+10%
+20%
+30%
+40%
+50%
+60%
+70%
+80%
+Renegotiation Support
+Secure renegotiation
+135,681 99.1%
+Insecure renegotiation
+95 0.1%
+Both
+54 < 0.1%
+No support
+1,024 0.7%
++ 0.0 %
++ 0.0 %
++ 0.0 %
+- 0.1 %
+Extended Validation Certificates
+6.0%
+Sites that have anExtended Validationcertificate
+8,246
+- 0.1 %
+HTTP/2
+55.3%
+Sites that supportthe HTTP/2 protocol
+75,671
++ 0.9 %
+Forward Secrecy
+Not supported
+1,172 0.9%
+Some FS suites enabled
+14,435 10.5%
+Used with modern browsers
+27,583 20.2%
+Used with most browsers
+93,664 68.4%
++ 0.0 %
+- 0.3 %
+- 0.2 %
++ 0.6 %
+Best Protocol Support
+SSL v2.0
+SSL v3.0
+TLS v1.0
+TLS v1.1
+TLS v1.2
+TLS v1.3
+0
+20%
+40%
+60%
+80%
+100%
+Key Strength Distribution
+Below 2048 bits
+0 0.0%
+2048 bits
+117,657 86.0%
+3072 bits
+9,349 6.8%
+4096 bits
+9,333 6.8%
++ 0.0 %
+- 0.2 %
++ 0.2 %
+- 0.1 %
+BEAST Attack
+The BEAST Attack is no longer considered a valid threat for users of modern browsers, and will no longer be tracked on the SSL Pulse report going forward.
+
+SPDY
+1.1%
+Sites that supportthe SPDY protocol
+1,535
++ 0.0 %
+RC4
+Not supported
+127,200 92.9%
+Some RC4 suites enabled
+9,050 6.6%
+Used with modern browsers
+604 0.4%
++ 0.2 %
+- 0.2 %
+- 0.1 %
+Certificate Signature Algorithms
+SHA512
+153 0.1%
+SHA384
+1,195 0.9%
+SHA256
+135,344 98.9%
+SHA1
+0 0.0%
++ 0.0 %
++ 0.1 %
+- 0.1 %
++ 0.0 %
+CVE-2016-2107
+Not vulnerable
+134,989 98.6%
+Vulnerable
+739 0.5%
+Unknown
+1,126 0.8%
++ 0.1 %
+- 0.1 %
+- 0.1 %
+ROBOT
+Not vulnerable
+136,577 99.8%
+Vulnerable, strong oracle
+160 0.1%
+Vulnerable, weak oracle
+112 0.1%
+Unknown
+5 < 0.1%
++ 0.0 %
++ 0.0 %
++ 0.0 %
++ 0.0 %
+CVE-2014-0224
+Not vulnerable
+134,819 98.5%
+Vulnerable and exploitable
+111 0.1%
+Vulnerable, not exploitable
+274 0.2%
+Unknown
+1,650 1.2%
++ 0.0 %
++ 0.0 %
++ 0.0 %
++ 0.0 %
+DROWN Attack
+Not vulnerable
+135,606 99.1%
+Vulnerable
+417 0.3%
+Unknown
+831 0.6%
++ 0.2 %
+- 0.3 %
++ 0.0 %
+Heartbleed
+31Sites vulnerable to
+the Heartbleed Bug
+0.0 %of sites surveyed
+- 4since previous month
+Sites that require RC4
+1Sites that support only
+RC4 cipher suites
+0.0 %of sites surveyed
++ 0since previous month
+Zombie POODLE
+Not vulnerable
+127,836 93.4%
+Vulnerable and Exploitable
+284 0.2%
+Vulnerable
+42 < 0.1%
+Unknown
+8,692 6.4%
+- 0.1 %
++ 0.0 %
++ 0.0 %
++ 0.2 %
+0-Length Padding Oracle
+Not vulnerable
+127,787 93.4%
+Vulnerable and Exploitable
+75 0.1%
+Vulnerable
+300 0.2%
+Unknown
+8,692 6.4%
++ 0.0 %
++ 0.0 %
+- 0.1 %
++ 0.2 %
+POODLE TLS
+Not vulnerable
+136,582 99.8%
+Vulnerable and exploitable
+115 0.1%
+Unknown
+157 0.1%
++ 0.0 %
++ 0.0 %
++ 0.0 %
+OCSP Stapling
+41.9%
+Sites that supportOCSP stapling
+57,360
++ 1.1 %
+GOLDENDOODLE
+Not vulnerable
+128,087 93.6%
+Vulnerable and Exploitable
+66 < 0.1%
+Vulnerable
+9 < 0.1%
+Unknown
+8,692 6.4%
+- 0.1 %
+- 0.1 %
++ 0.0 %
++ 0.2 %
+93.6 % of sites surveyed
+are not vulnerable to GOLDENDOODLE
+128,087 sites 
+Sleeping POODLE
+Not vulnerable
+128,046 93.6%
+Vulnerable and Exploitable
+116 0.1%
+Vulnerable
+0 0.0%
+Unknown
+8,692 6.4%
+- 0.1 %
++ 0.0 %
++ 0.0 %
++ 0.2 %
+Protocol Downgrade Defense
+Supported
+98,805 72.2%
+Not Supported
+9,230 6.7%
+Unknown
+28,819 21.1%
+- 0.1 %
+- 0.3 %
++ 0.4 %
+TLS Compression / CRIME
+0.1%
+Sites that supportTLS compression
+164
++ 0.0 %
+Comparisons are made against the previous month's data.
