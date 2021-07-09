@@ -1,8 +1,8 @@
-SSL Pulse Trends
-Qualys SSL Pulse site provides SSL setting statistics data of Alexa top 0.2M sites every month. Ivan Ristic who is the SSL Pulse site owner have kindly approved re-use of data. So trend data of SSL Pulse will be provided in this site.
-SSL Pulse data period: 2012 Apr 23 - 2021 Jun 19
-SSL Pulse Grade Trends
-SSL Pulse
+### SSL Pulse Trends
+-Qualys SSL Pulse site provides SSL setting statistics data of Alexa top 0.2M sites every month. Ivan Ristic who is the SSL Pulse site owner have kindly approved re-use of data. So trend data of SSL Pulse will be provided in this site.
+-SSL Pulse data period: 2012 Apr 23 - 2021 Jun 19
+-SSL Pulse Grade Trends
+# SSL Pulse
 0%
 20%
 40%
@@ -25,7 +25,7 @@ SSL Pulse
 ✔E
 ✔F
 
-Validation Level
+### Validation Level
 
 0%
 20%
@@ -44,7 +44,7 @@ Validation Level
 ✔EV
 ✔none
 
-SSL/TLS Vulnerabilities
+### SSL/TLS Vulnerabilities
 
 0%
 20%
@@ -74,7 +74,7 @@ SSL/TLS Vulnerabilities
 ✔Insecure Renegotiation
 ✔Heartbleed vulnerable
 
-SSL/TLS Protocols
+### SSL/TLS Protocols
 
 0%
 20%
@@ -96,7 +96,7 @@ SSL/TLS Protocols
 ✔TLS 1.2
 ✔TLS 1.3
 
-Best SSL/TLS Protocols
+### Best SSL/TLS Protocols
 
 0%
 20%
@@ -116,7 +116,7 @@ Best SSL/TLS Protocols
 ✔TLS 1.2
 ✔TLS 1.3
 
-Signature Algorithms for SSL Server Certificate
+### Signature Algorithms for SSL Server Certificate
 
 0%
 20%
@@ -136,7 +136,7 @@ Signature Algorithms for SSL Server Certificate
 ✔SHA256withRSA
 ✔SHA1withRSA
 
-Key Size of SSL Server Certificate
+### Key Size of SSL Server Certificate
 
 0%
 20%
@@ -156,7 +156,7 @@ Key Size of SSL Server Certificate
 ✔RSA 1024bit
 ✔RSA 512bit
 
-Support for SSL/TLS New Technology
+### Support for SSL/TLS New Technology
 
 0%
 10%
@@ -178,7 +178,7 @@ Support for SSL/TLS New Technology
 ✔EV certificate
 ✔HSTS support
 
-Key Size for Key Exchange
+### Key Size for Key Exchange
 
 0%
 10%
@@ -208,7 +208,7 @@ Key Size for Key Exchange
 ✔Key Exchange Size 768bit
 ✔Key Exchange Size 512bit
 
-Key Size for DH(E) Key Exchange
+### Key Size for DH(E) Key Exchange
 
 0%
 10%
@@ -237,7 +237,7 @@ Key Size for DH(E) Key Exchange
 ✔DH 512bit
 ✔DH(E) not supported
 
-Key Size for ECDH(E) Key Exchange
+### Key Size for ECDH(E) Key Exchange
 
 0%
 10%
@@ -266,7 +266,7 @@ Key Size for ECDH(E) Key Exchange
 ✔ECDH 128bit
 ✔ECDH(E) not supported
 
-HTTP/2 support protocol in ALPN
+### HTTP/2 support protocol in ALPN
 
 0%
 10%
@@ -296,7 +296,7 @@ HTTP/2 support protocol in ALPN
 ✔h2
 ✔http/1.1
 
-HTTP/2 support protocol in NPN
+### HTTP/2 support protocol in NPN
 
 0%
 5%
@@ -324,12 +324,12 @@ HTTP/2 support protocol in NPN
 ✔h2
 
 
-CHANGES
+# CHANGES
 Jun 2020 - SHA384withECDSA added to signature algorithm of TLS certificate.
 Oct 2019 - Add graph for a certificate usage issued by Let's Encrypt.
 May 2019 - ALPN TLS extension chart is added. Zombie Poodle and Golden Doodle vulnerability affection charts are added in VULNERABILITIES chart.
 
-ACKNOWLEDGEMENT
+# ACKNOWLEDGEMENT
 Special thanks for Ivan Ristić and SSL Pulse site to approve re-use of its data. As for graphs Rickshaw library is used.
 
 © 2016-2021 Kenji Urushima (@kjur) All Rights Reserved.
