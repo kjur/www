@@ -19,6 +19,7 @@
 <script src="js/data_kx.js"></script>
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
+<script src="js/data_namegroup.js"></script>
 <script src="js/data_alpn.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
@@ -46,6 +47,7 @@
 <a href="#kx">key exchange size</a> | 
 <a href="#kxdh">DH key exchange size</a> | 
 <a href="#kxecdh">ECDH key exchange size</a> | 
+<a href="#namegroup">ECDH named groups</a> | 
 <a href="#alpn">HTTP/2 ALPN</a> | 
 <a href="#http2">HTTP/2 NPN</a> | 
 <a href="#changes">changes</a> | 
@@ -215,6 +217,20 @@ SSL Pulse data period: <span id="datebegin"></span> - <span id="dateend"></span>
 </div>
 <br clear="all"/>
 
+<a name="namegroup"><h3>Supported ECDH Named Groups</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="namegroup_yaxis" class="yaxis"></div>
+<div id="namegroup_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="namegroup_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
 <a name="alpn"><h3>HTTP/2 support protocol in ALPN</h3></a>
 
 <br clear="all"/>
@@ -361,6 +377,7 @@ RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "en");
 RickshawUtilGraph("kx", lineTempl, seriesKx, "en");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "en");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "en");
+RickshawUtilGraph("namegroup", lineTempl, seriesNamedGroups, "en");
 RickshawUtilGraph("alpn", lineTempl, seriesALPN, "en");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "en");
 RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "en");
@@ -374,6 +391,9 @@ RickshawUtilGraph("grade", lineTempl, seriesGrade, "en",
 <br clear="all"/>
 <a name="changes"><h3>CHANGES</h3></a>
 <ul>
+<li>Sep 2021 -
+<a href="#namegroup">ECDH named groups chart</a> added.
+</li>
 <li>Jun 2020 -
 SHA384withECDSA added to <a href="#sigalg">signature algorithm</a> of TLS certificate.
 </li>

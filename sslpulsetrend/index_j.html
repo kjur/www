@@ -19,6 +19,7 @@
 <script src="js/data_kx.js"></script>
 <script src="js/data_kxdh.js"></script>
 <script src="js/data_kxecdh.js"></script>
+<script src="js/data_namegroup.js"></script>
 <script src="js/data_alpn.js"></script>
 <script src="js/data_http2.js"></script>
 <script src="js/data_grade.js"></script>
@@ -46,6 +47,7 @@
 <a href="#kx">鍵交換鍵長</a> | 
 <a href="#kxdh">DH鍵長</a> | 
 <a href="#kxecdh">ECDH鍵長</a> | 
+<a href="#namegroup">ECDH楕円曲線名</a> | 
 <a href="#alpn">HTTP/2 ALPN</a> | 
 <a href="#http2">HTTP/2 NPN</a> | 
 <a href="#changes">更新履歴</a> | 
@@ -226,6 +228,20 @@ SHA256withRSAへの移行が進んでいます。
 </div>
 <br clear="all"/>
 
+<a name="namegroup"><h3>ECDH鍵交換のnamed curveの対応率上位</h3></a>
+
+<br clear="all"/>
+<div id="chart_container">
+<div id="namegroup_yaxis" class="yaxis"></div>
+<div id="namegroup_chart"></div>
+<div id="legend_container">
+  <div id="smoother" title="Smoothing"></div>
+  <div id="namegroup_legend"></div>
+</div>
+<div id="slider"></div>
+</div>
+<br clear="all"/>
+
 <a name="alpn"><h3>HTTP/2 ALPNにおけるプロトコルのサポート率</h3></a>
 HTTP/2のhttpsの場合のプロトコルネゴシエーションで、
 サーバー側がサポートする
@@ -377,6 +393,7 @@ RickshawUtilGraph("newtech", lineTempl, seriesNewTech, "jp");
 RickshawUtilGraph("kx", lineTempl, seriesKx, "jp");
 RickshawUtilGraph("kxdh", lineTempl, seriesKxDH, "jp");
 RickshawUtilGraph("kxecdh", lineTempl, seriesKxECDH, "jp");
+RickshawUtilGraph("namegroup", lineTempl, seriesNamedGroups, "jp");
 RickshawUtilGraph("alpn", lineTempl, seriesALPN, "jp");
 RickshawUtilGraph("http2", lineTempl, seriesHTTP2, "jp");
 RickshawUtilGraph("ovdvev", lineTempl, seriesValidation, "jp");
@@ -391,6 +408,10 @@ RickshawUtilGraph("grade", lineTempl, seriesGrade, "jp",
 <a name="changes"><h3>更新履歴</h3></a>
 データの更新以外の情報の追加、トレンドの変化コメントなどは以下の通りです。
 <ul>
+<li>2021年9月 -
+<a href="#namegroup">ECDH鍵交換のnamed groupsの対応率のグラフ</a>
+を追加しました。
+</li>
 <li>2020年6月 -
 SHA384withECDSA を<a href="#sigalg">証明書の署名アルゴリズムのグラフ</a>に追加しました。
 </li>
